@@ -26,4 +26,8 @@
     <None Include="Views\CreateOrUpdateViews\ModificarOCrearTipoMaquinaView.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\EjercicioView\" />
+  </ItemGroup>
+
 </Project>

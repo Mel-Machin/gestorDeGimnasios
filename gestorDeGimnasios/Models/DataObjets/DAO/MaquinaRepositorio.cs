@@ -18,18 +18,39 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             while (lector.Read())
             {
                 Maquina maquina = new Maquina();
-                maquina.IdMaquina = lector.GetInt32(0);
-                maquina.IdLocal= lector.GetInt32(1);
-                maquina.FechaCompra = lector.GetDateTime(2);
-                maquina.Precio = lector.GetDecimal(3);
-                maquina.VidaUtil = lector.GetInt16(4);
-                maquina.IdTipoMaquina = lector.GetInt32(5);
+                maquina.IdMaquina = (int)lector.GetDecimal(0);
+                maquina.IdLocal= (int)lector.GetDecimal(2);
+                maquina.FechaCompra = lector.GetDateTime(3);
+                maquina.Precio = lector.GetDecimal(4);
+                maquina.VidaUtil = (int)lector.GetDecimal(5);
+                maquina.IdTipoMaquina = lector.GetInt32(1);
                 maquina.Disponibilidad = lector.GetString(6);
                 maquinas.Add(maquina);
             }
 
             conexion.Close();
             return maquinas;
+        }
+
+        public Maquina obtenerMaquina(int idMaquina)
+        {
+            SqlConnection conexion = new Connection().obtenerConexion();
+            conexion.Open();
+            string consulta = "SELECT * FROM maquinas WHERE id_maquina = @idMaquina";
+            SqlCommand comando = new SqlCommand(consulta, conexion);
+            comando.Parameters.AddWithValue("@idMaquina", idMaquina);
+            SqlDataReader lector = comando.ExecuteReader();
+            lector.Read();
+            Maquina maquina = new Maquina();
+            maquina.IdMaquina = (int)lector.GetDecimal(0);
+            maquina.IdLocal = (int)lector.GetDecimal(2);
+            maquina.FechaCompra = lector.GetDateTime(3);
+            maquina.Precio = lector.GetDecimal(4);
+            maquina.VidaUtil = (int)lector.GetDecimal(5);
+            maquina.IdTipoMaquina = lector.GetInt32(1);
+            maquina.Disponibilidad = lector.GetString(6);
+            conexion.Close();
+            return maquina;
         }
 
         public bool registrarMaquina(Maquina maquina) {
@@ -91,12 +112,12 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             while (lector.Read())
             {
                 Maquina maquina = new Maquina();
-                maquina.IdMaquina = lector.GetInt32(0);
-                maquina.IdLocal = lector.GetInt32(1);
-                maquina.FechaCompra = lector.GetDateTime(2);
-                maquina.Precio = lector.GetDecimal(3);
-                maquina.VidaUtil = lector.GetInt16(4);
-                maquina.IdTipoMaquina = lector.GetInt32(5);
+                maquina.IdMaquina = (int)lector.GetDecimal(0);
+                maquina.IdLocal = (int)lector.GetDecimal(2);
+                maquina.FechaCompra = lector.GetDateTime(3);
+                maquina.Precio = lector.GetDecimal(4);
+                maquina.VidaUtil = (int)lector.GetDecimal(5);
+                maquina.IdTipoMaquina = lector.GetInt32(1);
                 maquina.Disponibilidad = lector.GetString(6);
                 maquinas.Add(maquina);
             }
@@ -119,12 +140,12 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             while (lector.Read())
             {
                 Maquina maquina = new Maquina();
-                maquina.IdMaquina = lector.GetInt32(0);
-                maquina.IdLocal = lector.GetInt32(1);
-                maquina.FechaCompra = lector.GetDateTime(2);
-                maquina.Precio = lector.GetDecimal(3);
-                maquina.VidaUtil = lector.GetInt16(4);
-                maquina.IdTipoMaquina = lector.GetInt32(5);
+                maquina.IdMaquina = (int)lector.GetDecimal(0);
+                maquina.IdLocal = (int)lector.GetDecimal(2);
+                maquina.FechaCompra = lector.GetDateTime(3);
+                maquina.Precio = lector.GetDecimal(4);
+                maquina.VidaUtil = (int)lector.GetDecimal(5);
+                maquina.IdTipoMaquina = lector.GetInt32(1);
                 maquina.Disponibilidad = lector.GetString(6);
                 maquinasOrdenadas.Add(maquina);
             }
