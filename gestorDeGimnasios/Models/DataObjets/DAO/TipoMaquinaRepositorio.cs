@@ -5,7 +5,7 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
 {
     public class TipoMaquinaRepositorio
     {
-        public List<TipoMaquina> obtenerTiposMaquinasRegistradas() {
+        public List<TipoMaquina> ObtenerTiposMaquinasRegistradas() {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
             string consulta = "SELECT * FROM tipos_maquinas";
@@ -25,7 +25,24 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             return tiposMaquinas;
         }
 
-        public bool registrarTipoMaquina(TipoMaquina tipoMaquina) {
+        public TipoMaquina ObtenerTipoMaquina(int idTipoMaquina)
+        {
+            SqlConnection conexion = new Connection().obtenerConexion();
+            conexion.Open();
+            string consulta = "SELECT * FROM tipos_maquinas WHERE id_tipo_maquina = @idTipoMaquina";
+            SqlCommand sqlComando = new SqlCommand(consulta, conexion);
+            sqlComando.Parameters.AddWithValue("@idTipoMaquina", idTipoMaquina);
+            SqlDataReader lector = sqlComando.ExecuteReader();
+            lector.Read();
+            TipoMaquina tipoMaquina = new TipoMaquina();
+            tipoMaquina.IdTipoMaquina = (int)lector.GetInt32(0);
+            tipoMaquina.Nombre = lector.GetString(1);
+
+            conexion.Close();
+            return tipoMaquina;
+        }
+
+        public bool RegistrarTipoMaquina(TipoMaquina tipoMaquina) {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
             string consulta = "INSERT INTO tipos_maquinas (Nombre_tipo_maquina) VALUES (@Nombre)";
@@ -37,7 +54,7 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             return creado > 0;
         }
 
-        public bool eliminarTipoMaquina(int idTipoMaquina) {
+        public bool EliminarTipoMaquina(int idTipoMaquina) {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
             string consulta = "DELETE from tipos_maquinas WHERE id_tipo_maquina = @idTipoMaquina";
@@ -49,7 +66,7 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             return afectados > 0;
         }
 
-        public bool modificarTipoMaquina(TipoMaquina tipoMaquina, int idTipoMaquina) {
+        public bool ModificarTipoMaquina(TipoMaquina tipoMaquina, int idTipoMaquina) {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
             string consulta = "UPDATE tipos_maquinas SET Nombre_tipo_maquina = @Nombre WHERE id_tipo_maquina = @IdTipoMaquina";
@@ -61,5 +78,6 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             conexion.Close();
             return actualizado > 0;
         }
+
     }
 }

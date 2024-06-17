@@ -1,17 +1,35 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@{
-}
 
+
+<form asp-action="AccionFiltrarPorLocal" method="post">
+    <div class="form-group">
+        <label>ID local</label>
+        <input name="IdLocal"  />
+    </div>
+    <button type="submit" class="btn btn-primary">Filtrar</button>
+</form>
+
+<form asp-action="AccionOrdenarFecha" method="post">
+    <label>Ordenar por fecha</label>
+        <select name="opcion">
+             <option value="Desc">Descendente</option>
+             <option value="Asc">Ascendente</option>
+        </select>
+    <button type="submit" class="btn btn-primary">Ordenar</button>
+</form>
+
+@Html.ActionLink("Agregar", "RegistrarMaquina")
+<h2>@ViewData["TituloLista"]</h2>
 <table>
     <thead>
         <tr>
             <th>Id maquina</th>
-            <th>Id tipo de maquin</th>
+            <th>Id tipo de maquina</th>
             <th>Id Local</th>
             <th>Fecha compra</th>
-            <th>Vida util</th>
+            <th>Vida útil</th>
             <th>Precio</th>
             <th>Disponibilidad</th>
         </tr>
@@ -29,11 +47,10 @@
                 <td>@Html.DisplayFor(modelItem => maquina.Precio)</td>
                 <td>@Html.DisplayFor(modelItem => maquina.Disponibilidad)</td>
                 <td>
-                    @Html.ActionLink("Editar", "EditarMaquina", new { id = maquina.IdMaquina }) |
-                    @Html.ActionLink("Eliminar", "EliminarMaquina", new { id = maquina.IdMaquina })
+                    @Html.ActionLink("Editar", "EditarMaquina", new { idMaquina = maquina.IdMaquina }) |
+                    @Html.ActionLink("Eliminar", "EliminarMaquina", new { idMaquina = maquina.IdMaquina })
                 </td>
             </tr>
-
         }
 
     </tbody>

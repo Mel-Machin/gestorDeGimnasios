@@ -7,27 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\CreateOrUpdateViews\ModificarOCrearTipoMaquinaView.cshtml" />
+    <Compile Remove="Views\CreateOrUpdateViews\**" />
+    <Compile Remove="Views\EjercicioView\**" />
+    <Content Remove="Views\CreateOrUpdateViews\**" />
+    <Content Remove="Views\EjercicioView\**" />
+    <EmbeddedResource Remove="Views\CreateOrUpdateViews\**" />
+    <EmbeddedResource Remove="Views\EjercicioView\**" />
+    <None Remove="Views\CreateOrUpdateViews\**" />
+    <None Remove="Views\EjercicioView\**" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\CreateOrUpdateViews\ModificarOCrearTipoMaquinaView.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Views\CreateOrUpdateViews\ModificarOCrearTipoMaquinaView.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Views\CreateOrUpdateViews\ModificarOCrearTipoMaquinaView.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\EjercicioView\" />
   </ItemGroup>
 
 </Project>

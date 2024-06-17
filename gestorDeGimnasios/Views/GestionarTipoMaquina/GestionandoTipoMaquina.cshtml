@@ -1,0 +1,27 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@Html.ActionLink("Registrar", "RegistrarTipoMaquina")
+<table>
+    <thead>
+        <tr>
+            <th>Id tipo de maquina</th>
+            <th>Nombre</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (TipoMaquina tipoMaquina in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => tipoMaquina.IdTipoMaquina)</td>
+                <td>@Html.DisplayFor(modelItem => tipoMaquina.Nombre) </td>
+                <td>
+                    @Html.ActionLink("Editar", "EditarTipoMaquina", new { idTipoMaquina = tipoMaquina.IdTipoMaquina }) |
+                    @Html.ActionLink("Eliminar", "EliminarTipoMaquina", new { idTipoMaquina = tipoMaquina.IdTipoMaquina })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

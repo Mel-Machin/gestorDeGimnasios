@@ -56,10 +56,10 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
         public bool registrarMaquina(Maquina maquina) {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
-            string consulta = "INSERT INTO maquinas (Id_tipo_maquina, Id_local, Fecha_compra, Precio_compra, Vida_util, Disponibilidad) VALUES (@IdTipoMaquina, @IdLocal, @FechaCompra, @Precio, @VidaUtil, @Disponibilidad)";
+            string consulta = "INSERT INTO maquinas (Id_tipo_maquina, Id_local, Fecha_compra, Precio_compra, Vida_util, Disponibilidad) VALUES (@IdTipoMaquina,@IdLocal,@FechaCompra,@Precio,@VidaUtil,@Disponibilidad)";
             SqlCommand sqlCommand = new SqlCommand(consulta, conexion);
             sqlCommand.Parameters.AddWithValue("@IdTipoMaquina", maquina.IdTipoMaquina);
-            sqlCommand.Parameters.AddWithValue(" @IdLocal", maquina.IdLocal);
+            sqlCommand.Parameters.AddWithValue("@IdLocal", maquina.IdLocal);
             sqlCommand.Parameters.AddWithValue("@FechaCompra", maquina.FechaCompra);
             sqlCommand.Parameters.AddWithValue("@Precio", maquina.Precio);
             sqlCommand.Parameters.AddWithValue("@VidaUtil", maquina.VidaUtil);
@@ -153,7 +153,6 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             conexion.Close();
             return maquinasOrdenadas;
         }
-
     
         public int calcularVidaUtilRestante(int idMaquina) {
             SqlConnection conexion = new Connection().obtenerConexion();
@@ -172,5 +171,6 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
                 throw new Exception("No se encontró la máquina especificada.");
             }
         }
+
     }
 }

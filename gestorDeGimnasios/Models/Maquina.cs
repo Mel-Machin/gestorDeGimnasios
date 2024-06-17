@@ -18,9 +18,5 @@
         public int IdTipoMaquina { get { return this.idTipoMaquina; } set { this.idTipoMaquina = value; } }
         public string Disponibilidad { get { return this.disponibilidad; } set { this.disponibilidad = value; } }
 
-        public Maquina()
-        {
-
-        }
     }
 }
