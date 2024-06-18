@@ -2,7 +2,7 @@
 using Microsoft.Data.SqlClient;
 
 namespace gestorDeGimnasios.Models.DataObjets.DAO{
-    public class RutinaRepositorio{
+    public class RutinaRepositorio {
         public List<Rutina> ObtenerRutinasResgistradas()
         {
             SqlConnection conexion = new Connection().obtenerConexion();
@@ -15,7 +15,7 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO{
             {
 
                 Rutina rutina = new Rutina();
-                rutina.IdRutina = lector.GetInt32(0);
+                rutina.IdRutina = (int)lector.GetDecimal(0);
                 rutina.Descripcion = lector.GetString(1);
                 rutina.TipoRutina = lector.GetString(2);
                 rutina.CalificacionRutinaPromedio = lector.GetDecimal(3);
@@ -24,6 +24,23 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO{
             }
             conexion.Close();
             return rutinas;
+        }
+
+        public Rutina ObtenerRutina(int idRutina) {
+            SqlConnection conexion = new Connection().obtenerConexion();
+            conexion.Open();
+            string consulta = "SELECT * FROM rutinas  WHERE id_rutina = @IdRutina";
+            SqlCommand sqlComando = new SqlCommand(consulta, conexion);
+            sqlComando.Parameters.AddWithValue("@IdRutina", idRutina);
+            SqlDataReader lector = sqlComando.ExecuteReader();
+            lector.Read();
+            Rutina rutina = new Rutina();
+            rutina.IdRutina = lector.GetInt32(0);
+            rutina.Descripcion = lector.GetString(1);
+            rutina.TipoRutina = lector.GetString(2);
+            rutina.CalificacionRutinaPromedio = lector.GetDecimal(3);     
+            conexion.Close();
+            return rutina;
         }
 
         public bool RegistrarRutina(Rutina rutina) {

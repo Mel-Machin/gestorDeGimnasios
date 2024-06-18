@@ -16,12 +16,12 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             while (lector.Read())
             {
                 Local local = new Local();
-                local.IdLocal = lector.GetInt32(0);
+                local.IdLocal = (int)lector.GetDecimal(0);
                 local.Nombre = lector.GetString(1);
                 local.Ciudad = lector.GetString(2);
                 local.Direccion = lector.GetString(3);
                 local.Telefono = lector.GetString(4);
-                local.IdResponsable = lector.GetInt32(5);
+                local.IdResponsable = (int)lector.GetInt32(5);
                 locales.Add(local);
 
             }
@@ -30,6 +30,25 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             return locales;
         }
 
+        public Local ObtenerLocal(int idLocal)
+        {
+            SqlConnection conexion = new Connection().obtenerConexion();
+            conexion.Open();
+            string consulta = "SELECT * FROM locales WHERE id_local = @IdLocal";
+            SqlCommand comando = new SqlCommand(consulta, conexion);
+            comando.Parameters.AddWithValue("@IdLocal", idLocal);
+            SqlDataReader lector = comando.ExecuteReader();
+            lector.Read();
+            Local local = new Local();
+            local.IdLocal = (int)lector.GetDecimal(0);
+            local.Nombre = lector.GetString(1);
+            local.Ciudad = lector.GetString(2);
+            local.Direccion = lector.GetString(3);
+            local.Telefono = lector.GetString(4);
+            local.IdResponsable = (int)lector.GetInt32(5);
+            conexion.Close();
+            return local;
+        }
         public bool registrarLocal(Local local)  {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();

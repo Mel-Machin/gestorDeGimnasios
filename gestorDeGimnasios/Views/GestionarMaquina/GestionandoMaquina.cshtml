@@ -47,9 +47,23 @@
                 <td>@Html.DisplayFor(modelItem => maquina.Precio)</td>
                 <td>@Html.DisplayFor(modelItem => maquina.Disponibilidad)</td>
                 <td>
-                    @Html.ActionLink("Editar", "EditarMaquina", new { idMaquina = maquina.IdMaquina }) |
+                    @Html.ActionLink("Editar", "EditarMaquina", new { idMaquina = maquina.IdMaquina }) 
                     @Html.ActionLink("Eliminar", "EliminarMaquina", new { idMaquina = maquina.IdMaquina })
-                </td>
+
+                    <form asp-action="CalcularVidaUtil" method="post" style="display:inline;">
+                        <input type="hidden" name="idMaquina" value="@maquina.IdMaquina" />
+                        <button type="submit" class="btn btn-info">Calcular Vida Útil</button>
+                    </form>
+                    <div>
+                        @if (ViewData.ContainsKey("VidaUtilRestante_" + maquina.IdMaquina))
+                        {
+                            <span>Vida útil restante: @ViewData["VidaUtilRestante_" + maquina.IdMaquina]</span>
+                        }
+                        @if (ViewData.ContainsKey("Error_" + maquina.IdMaquina))
+                        {
+                            <span style="color:red;">Error: @ViewData["Error_" + maquina.IdMaquina]</span>
+                        }
+                    </div>
             </tr>
         }
 

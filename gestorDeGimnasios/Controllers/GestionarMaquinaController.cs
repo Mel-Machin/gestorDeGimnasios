@@ -4,24 +4,62 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace gestorDeGimnasios.Controllers
 {
-    public class GestionarMaquinaController : Controller
-    {
-        /* public List<Maquina> ObtenerMaquinasPorLocal(Local local) { 
-            return new MaquinaRepositorio().ObtenerMaquinasPorLocal(local); 
-        }
-        public List<Maquina> OrdenarMaquinasPorFechaCompra(string orden) {
-            return new MaquinaRepositorio().ordenarMaquinasPorFechaCompra(orden);
-        }
-        public int CalcularVidaUtilRestante(int idMaquina){
-            return new MaquinaRepositorio().calcularVidaUtilRestante(idMaquina);
-        }*/
+    public class GestionarMaquinaController : Controller{
 
-        //Vista principal de Gestion de Maquina 
+        //Vista principal de Gestion de Maquinas 
         public ActionResult GestionandoMaquina()
         {
             List<Maquina> maquinas = new MaquinaRepositorio().obtenerMaquinasRegistradas();
-            ViewData["TituloLista"] = "Listando todas las maquinas";
+            ViewData["TituloLista"] = "Lista de maquinas:";
             return View(maquinas);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AccionFiltrarPorLocal(int idLocal)
+        {
+            if (ModelState.IsValid)
+            {
+                Local local = new Local();
+                local.IdLocal=idLocal;
+                List<Maquina> maquinasFiltradas = new MaquinaRepositorio().ObtenerMaquinasPorLocal(local);
+                ViewData["TituloLista"] = "Lista de maquinas del local "+ idLocal;
+                return View("GestionandoMaquina", maquinasFiltradas); // Devuelve la vista GestionandoMaquina con las máquinas filtradas por local.
+
+            }
+            ViewData["TituloLista"] = "Lista de maquinas:";
+            List<Maquina> maquinas = new MaquinaRepositorio().obtenerMaquinasRegistradas();
+
+            return View("GestionandoMaquina", maquinas); // Devuelve la vista gestionandoMaquina con todas las maquinas.
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AccionOrdenarFecha(String opcion)
+        {
+            if (ModelState.IsValid)
+            {
+
+                List<Maquina> maquinasFiltradas = new MaquinaRepositorio().ordenarMaquinasPorFechaCompra(opcion);
+                ViewData["TituloLista"] = "Lista de maquinas ordenadas de manera "+ (opcion == "Desc" ? "descendente." : "ascendente."); ;
+                return View("GestionandoMaquina", maquinasFiltradas); // Devuelve la vista GestionandoMaquina con las máquinas filtradas (ordenadas).
+
+            }
+            List<Maquina> maquinas = new MaquinaRepositorio().obtenerMaquinasRegistradas();
+            ViewData["TituloLista"] = "Lista de maquinas:";
+            return View("GestionandoMaquina", maquinas); // Devuelve la vista gestionandoMaquina con todas las maquinas.
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CalcularVidaUtil(int idMaquina){ 
+            if (ModelState.IsValid){
+                int vidaUtilRestante = new MaquinaRepositorio().calcularVidaUtilRestante(idMaquina);
+                ViewData["VidaUtilRestante_" + idMaquina] = vidaUtilRestante;
+            }  
+                // Vuelve a cargar la lista de máquinas y la vista principal
+                List<Maquina> maquinas = new MaquinaRepositorio().obtenerMaquinasRegistradas();
+                return View("GestionandoMaquina", maquinas);
         }
 
 
@@ -39,7 +77,6 @@ namespace gestorDeGimnasios.Controllers
 
             }
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AccionEditarMaquina(Maquina maquina)
@@ -69,7 +106,6 @@ namespace gestorDeGimnasios.Controllers
                 return NotFound();
             }
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AccionEliminarMaquina(Maquina maquina)
@@ -91,7 +127,6 @@ namespace gestorDeGimnasios.Controllers
         {
             return View();
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AccionRegistrarMaquina(Maquina maquina)
@@ -111,41 +146,5 @@ namespace gestorDeGimnasios.Controllers
             return View(maquina);
         }
 
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult AccionFiltrarPorLocal(int idLocal)
-        {
-            if (ModelState.IsValid)
-            {
-                Local local = new Local();
-                local.IdLocal=idLocal;
-                List<Maquina> maquinasFiltradas = new MaquinaRepositorio().ObtenerMaquinasPorLocal(local);
-                ViewData["TituloLista"] = "Listando todas las maquinas del local "+ idLocal;
-                return View("GestionandoMaquina", maquinasFiltradas); // Devuelve la vista GestionandoMaquina con las máquinas filtradas
-
-            }
-            ViewData["TituloLista"] = "Listando todas las maquinas";
-            List<Maquina> maquinas = new MaquinaRepositorio().obtenerMaquinasRegistradas();
-
-            return View("GestionandoMaquina", maquinas);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult AccionOrdenarFecha(String opcion)
-        {
-            if (ModelState.IsValid)
-            {
-
-                List<Maquina> maquinasFiltradas = new MaquinaRepositorio().ordenarMaquinasPorFechaCompra(opcion);
-                ViewData["TituloLista"] = "Listando todas las maquinas en orden "+ (opcion == "Desc" ? "descendente" : "scendente"); ;
-                return View("GestionandoMaquina", maquinasFiltradas); // Devuelve la vista GestionandoMaquina con las máquinas filtradas
-
-            }
-            List<Maquina> maquinas = new MaquinaRepositorio().obtenerMaquinasRegistradas();
-            ViewData["TituloLista"] = "Listando todas las maquinas";
-            return View("GestionandoMaquina", maquinas);
-        }
     }
 }

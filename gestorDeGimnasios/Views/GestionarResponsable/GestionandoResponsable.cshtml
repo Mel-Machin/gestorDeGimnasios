@@ -3,3 +3,32 @@
 *@
 @{
 }
+
+
+@Html.ActionLink("Agregar", "RegistrarResponsable")
+
+<table>
+    <thead>
+        <tr>
+            <th>Id responsable</th>
+            <th>Nombre</th>
+            <th>Teléfono</th>
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach (Responsable responsable in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => responsable.IdResponsable)</td>
+                <td>@Html.DisplayFor(modelItem => responsable.Nombre)</td>
+                <td>@Html.DisplayFor(modelItem => responsable.Telefono)</td>
+             
+                <td>
+                    @Html.ActionLink("Editar", "EditarResponsable", new { idResponsable = responsable.IdResponsable })
+                    @Html.ActionLink("Eliminar", "EliminarResponsable", new { idResponsable = responsable.IdResponsable })
+            </tr>
+        }
+
+    </tbody>
+</table>

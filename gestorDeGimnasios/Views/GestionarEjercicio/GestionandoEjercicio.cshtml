@@ -3,3 +3,30 @@
 *@
 @{
 }
+
+@Html.ActionLink("Agregar", "RegistrarEjercicio")
+<table>
+    <thead>
+        <tr>
+            <th>Id ejercicio</th>
+            <th>Descripción</th>
+            <th>Id tipo de maquina</th>
+            <th>Rutinas Relacionadas</th>
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach (Ejercicio ejercicio in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => ejercicio.IdEjercicio)</td>
+                <td>@Html.DisplayFor(modelItem => ejercicio.Descripcion)</td>
+                <td>@Html.DisplayFor(modelItem => ejercicio.IdTipoMaquina)</td>
+                <td> 
+                    @Html.ActionLink("Editar", "EditarEjercicio", new { idEjercicio = ejercicio.IdEjercicio })
+                    @Html.ActionLink("Eliminar", "EliminarEjercicio", new { idEjercicio = ejercicio.IdEjercicio })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

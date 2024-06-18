@@ -161,15 +161,14 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             SqlCommand sqlCommand = new SqlCommand(consulta, conexion);
             sqlCommand.Parameters.AddWithValue("@id_maquina", idMaquina);
             SqlDataReader lector = sqlCommand.ExecuteReader();
-            if (lector.Read())
-            {
-                conexion.Close();
+            
+            if (lector.Read()){
+                
                 return lector.GetInt32(lector.GetOrdinal("VidaUtilRestante"));
-            }
-            else
-            {
+                
+            }else{
                 throw new Exception("No se encontró la máquina especificada.");
-            }
+            }          
         }
 
     }

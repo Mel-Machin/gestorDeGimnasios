@@ -3,3 +3,27 @@
 *@
 @{
 }
+@model gestorDeGimnasios.Models.Responsable
+
+
+<form asp-action="AccionEliminarResponsable" method="post">
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.IdResponsable, htmlAttributes: new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.IdResponsable, new { @class = "form-control", type = "number", @readonly = "readonly" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", type = "text", @readonly = "readonly" } })
+        @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Telefono, htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @class = "form-control", type = "text", @readonly = "readonly" } })
+        @Html.ValidationMessageFor(model => model.Telefono, "", new { @class = "text-danger" })
+    </div>
+
+    <input type="submit" value="Eliminar" class="btn btn-primary" />
+</form>

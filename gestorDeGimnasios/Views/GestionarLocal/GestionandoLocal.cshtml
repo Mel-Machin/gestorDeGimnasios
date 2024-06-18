@@ -3,3 +3,36 @@
 *@
 @{
 }
+@Html.ActionLink("Agregar", "RegistrarLocal")
+
+<table>
+    <thead>
+        <tr>
+            <th>Id local</th>
+            <th>Nombre</th>
+            <th>Ciudad</th>
+            <th>Dirección</th>
+            <th>Teléfono</th>
+            <th>Id Responsable</th>
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach (Local local in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => local.IdLocal)</td>
+                <td>@Html.DisplayFor(modelItem => local.Nombre)</td>
+                <td>@Html.DisplayFor(modelItem => local.Ciudad)</td>
+                <td>@Html.DisplayFor(modelItem => local.Direccion)</td>
+                <td>@Html.DisplayFor(modelItem => local.Telefono)</td>
+                <td>@Html.DisplayFor(modelItem => local.IdResponsable)</td>
+                <td>
+                    @Html.ActionLink("Editar", "EditarLocal", new { idLocal = local.IdLocal })
+                    @Html.ActionLink("Eliminar", "EliminarLocal", new { idLocal = local.IdLocal})
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>

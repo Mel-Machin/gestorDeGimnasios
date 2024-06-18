@@ -16,7 +16,7 @@ namespace gestorDeGimnasios.Data{
                 Ejercicio ejercicio = new Ejercicio();
                 ejercicio.IdEjercicio = (int)lector.GetDecimal(0);
                 ejercicio.Descripcion = lector.GetString(1);
-                ejercicio.IdTipoMaquina = lector.GetInt32(2);
+                ejercicio.IdTipoMaquina = (int)lector.GetInt32(3);
                 ejercicios.Add(ejercicio);
 
             }
@@ -25,6 +25,21 @@ namespace gestorDeGimnasios.Data{
             return ejercicios;
         }
 
+        public Ejercicio ObtenerEjercicio(int idEjercicio)
+        {
+            SqlConnection conexion = new Connection().obtenerConexion();
+            conexion.Open();
+            string consulta = "SELECT * FROM ejercicios";
+            SqlCommand comando = new SqlCommand(consulta, conexion);
+            SqlDataReader lector = comando.ExecuteReader();
+            lector.Read();
+            Ejercicio ejercicio = new Ejercicio();
+            ejercicio.IdEjercicio = (int)lector.GetDecimal(0);
+            ejercicio.Descripcion = lector.GetString(1);
+            ejercicio.IdTipoMaquina = lector.GetInt32(3);
+            conexion.Close();
+            return ejercicio;
+        }
         public bool RegistrarEjercicio(Ejercicio ejercicio){
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();

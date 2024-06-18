@@ -5,7 +5,7 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
 {
     public class ResponsableReposiotorio
     {
-        public List<Responsable> obtenerResponsablesRegistrados()
+        public List<Responsable> ObtenerResponsablesRegistrados()
         {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
@@ -26,7 +26,23 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             conexion.Close();
             return responsables;
         }
-        public bool registrarResponsable(Responsable responsable)
+        public Responsable ObtenerResponsable(int idResponsable)
+        {
+            SqlConnection conexion = new Connection().obtenerConexion();
+            conexion.Open();
+            string consulta = "SELECT * FROM Responsables WHERE id_responsable = @IdResponsable";
+            SqlCommand sqlComando = new SqlCommand(consulta, conexion);
+            sqlComando.Parameters.AddWithValue("@IdResponsable", idResponsable);
+            SqlDataReader lector = sqlComando.ExecuteReader();
+            lector.Read();
+                Responsable responsable = new Responsable();
+                responsable.IdResponsable = lector.GetInt32(0);
+                responsable.Nombre = lector.GetString(1);
+                responsable.Telefono = lector.GetString(2);
+            conexion.Close();
+            return responsable;
+        }
+        public bool RegistrarResponsable(Responsable responsable)
         {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
@@ -39,7 +55,7 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             conexion.Close();
             return creado > 0;
         }
-        public bool modificarResponsable(Responsable responsable, int idResponsable) {
+        public bool ModificarResponsable(Responsable responsable, int idResponsable) {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
             string consulta = "UPDATE Responsables SET nombre_responsable = @Nombre, Teléfono_responsable = @Telefono WHERE id_responsable = @idResponsable";
@@ -53,7 +69,7 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             conexion.Close();
             return actualizado > 0;
         }
-        public bool eliminarResponsable(int idResponsable) {
+        public bool EliminarResponsable(int idResponsable) {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
             string consulta = "DELETE from Responsables WHERE id_responsable = @idResponsable";

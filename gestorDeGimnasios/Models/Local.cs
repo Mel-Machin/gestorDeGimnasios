@@ -16,9 +16,6 @@
         public string Telefono { get { return this.telefono; } set { this.telefono = value; } }
         public int IdResponsable { get { return this.idResponsable; } set { this.idResponsable = value; } }
 
-        public Local()
-        {
-
-        }
+       
     }
 }

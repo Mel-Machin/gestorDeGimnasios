@@ -3,3 +3,33 @@
 *@
 @{
 }
+
+@Html.ActionLink("Agregar", "RegistrarRutina")
+
+<table>
+    <thead>
+        <tr>
+            <th>Id rutina</th>
+            <th>Descripción</th>
+            <th>Tipo</th>
+            <th>Calificación promedio</th>
+        </tr>
+
+    </thead>
+     <tbody>
+        @foreach (Rutina rutina in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => rutina.IdRutina)</td>
+                <td>@Html.DisplayFor(modelItem => rutina.Descripcion)</td>
+                <td>@Html.DisplayFor(modelItem => rutina.TipoRutina)</td>
+                <td>@Html.DisplayFor(modelItem => rutina.CalificacionRutinaPromedio)</td>
+                <td>
+                    @Html.ActionLink("Editar", "EditarRutina", new { idRutina = rutina.IdRutina })
+                    @Html.ActionLink("Eliminar", "EliminarRutina", new { idRutina = rutina.IdRutina })
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>

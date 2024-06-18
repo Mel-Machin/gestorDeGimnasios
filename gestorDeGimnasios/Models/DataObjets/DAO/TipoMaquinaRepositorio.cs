@@ -46,7 +46,7 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
             string consulta = "INSERT INTO tipos_maquinas (Nombre_tipo_maquina) VALUES (@Nombre)";
-            SqlCommand sqlCommand = new SqlCommand(consulta, conexion);
+            SqlCommand sqlCommand = new SqlCommand(consulta,conexion);
             sqlCommand.Parameters.AddWithValue("@Nombre", tipoMaquina.Nombre);
             int creado = sqlCommand.ExecuteNonQuery();
 

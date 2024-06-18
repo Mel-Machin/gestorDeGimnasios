@@ -1,25 +1,90 @@
 ﻿using gestorDeGimnasios.Models.DataObjets.DAO;
 using gestorDeGimnasios.Models;
 using gestorDeGimnasios.Data;
+using Microsoft.AspNetCore.Mvc;
 
-namespace gestorDeGimnasios.Controllers
-{
-    public class GestionarEjercicioController
-    {
-        public List<Ejercicio> ObtenerEjerciciosRegistrados(){
-            return new EjercicioRepositorio().ObtenerEjerciciosRegistrados();
+namespace gestorDeGimnasios.Controllers{
+    public class GestionarEjercicioController : Controller{
+        
+        //Vista principal de gestion ejercicio 
+        public ActionResult GestionandoEjercicio()
+        { 
+            List<Ejercicio> ejercicios = new EjercicioRepositorio().ObtenerEjerciciosRegistrados();
+            return View(ejercicios);
         }
 
-        public bool RegistrarEjercicio(Ejercicio ejercicio) {
-            return new EjercicioRepositorio().RegistrarEjercicio(ejercicio);
+        //Vista editar ejercicio 
+        public ActionResult EditarEjercicio(int idEjercicio)
+        {
+            if (idEjercicio != 0)
+            {
+                Ejercicio ejercicio = new EjercicioRepositorio().ObtenerEjercicio(idEjercicio);
+                return View(ejercicio);
+            }
+            else { 
+                return NotFound();
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AccionEditarEjercicio(Ejercicio ejercicio) {
+            if (ModelState.IsValid)
+            {
+                bool resultado = new EjercicioRepositorio().ModificarEjercicio(ejercicio, ejercicio.IdEjercicio);
+                if (resultado) {
+                    return RedirectToAction("GestionandoEjercicio");
+                }
+            }
+            return View(ejercicio);
         }
 
-        public bool EliminarEjercicio(int idEjercicio){
-            return new EjercicioRepositorio().EliminarEjercicio(idEjercicio);
+        //Vista eliminar ejercicio
+        public ActionResult EliminarEjercicio(int idEjercicio) {
+
+            if (idEjercicio != 0)
+            {
+                Ejercicio ejercicio = new EjercicioRepositorio().ObtenerEjercicio(idEjercicio);
+                return View(ejercicio);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AccionEliminarEjercicio(Ejercicio ejercicio) {
+            if (ModelState.IsValid)
+            {
+                bool resultado = new EjercicioRepositorio().EliminarEjercicio(ejercicio.IdEjercicio);
+                if (resultado)
+                {
+                    return RedirectToAction("GestionandoEjercicio");
+                }
+            }
+            return View(ejercicio);
         }
 
-        public bool ModificarEjercicio(Ejercicio ejercicio, int idEjercicio) { 
-            return new EjercicioRepositorio().ModificarEjercicio(ejercicio, idEjercicio); 
+        //Vista de registrar 
+        public ActionResult RegistrarEjercicio() { 
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AccionRegistrarEjercicio(Ejercicio ejercicio) {
+            if (ModelState.IsValid)
+            {
+                bool resultado = new EjercicioRepositorio().RegistrarEjercicio(ejercicio);
+                if (resultado)
+                {
+                    return RedirectToAction("GestionandoEjercicio");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Error al registrar el ejercicio.");
+                }
+            }
+            return View(ejercicio);
         }
     }
 }
