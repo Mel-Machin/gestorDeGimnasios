@@ -35,7 +35,7 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO{
             SqlDataReader lector = sqlComando.ExecuteReader();
             lector.Read();
             Rutina rutina = new Rutina();
-            rutina.IdRutina = lector.GetInt32(0);
+            rutina.IdRutina = (int)lector.GetDecimal(0);
             rutina.Descripcion = lector.GetString(1);
             rutina.TipoRutina = lector.GetString(2);
             rutina.CalificacionRutinaPromedio = lector.GetDecimal(3);     

@@ -3,3 +3,42 @@
 *@
 @{
 }
+
+<h2>
+    Administrar Socios
+</h2>
+@Html.ActionLink("Registrar", "RegistrarSocio")
+
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Tipo</th>
+            <th>Teléfono</th>
+            <th>Mail</th>
+            <th>Id local</th>
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach (Socio socio in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => socio.IdSocio)</td>
+                <td>@Html.DisplayFor(modelItem => socio.Nombre)</td>
+                <td>@Html.DisplayFor(modelItem => socio.Apellido)</td>
+                <td>@Html.DisplayFor(modelItem => socio.Tipo)</td>
+                <td>@Html.DisplayFor(modelItem => socio.Telefono)</td>
+                <td>@Html.DisplayFor(modelItem => socio.CorreoElectronico)</td>
+                <td>@Html.DisplayFor(modelItem => socio.IdLocal)</td>
+
+                <td>
+                    @Html.ActionLink("Editar", "EditarSocio", new { idSocio = socio.IdSocio })
+                    @Html.ActionLink("Eliminar", "EliminarSocio", new { idSocio = socio.IdSocio })
+            </tr>
+        }
+
+    </tbody>
+</table>

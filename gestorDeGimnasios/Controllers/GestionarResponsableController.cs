@@ -9,8 +9,8 @@ namespace gestorDeGimnasios.Controllers
         //Vista principal de Gestion de responsables 
         public ActionResult GestionandoResponsable()
         {
-            List<Responsable> responsable = new ResponsableReposiotorio().ObtenerResponsablesRegistrados();
-            return View(responsable);
+            List<Responsable> responsables = new ResponsableReposiotorio().ObtenerResponsablesRegistrados();
+            return View(responsables);
         }
 
         //Vista de editar responsable

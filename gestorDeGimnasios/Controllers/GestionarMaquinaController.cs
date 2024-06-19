@@ -35,7 +35,7 @@ namespace gestorDeGimnasios.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AccionOrdenarFecha(String opcion)
+        public ActionResult AccionOrdenarPorFecha(String opcion)
         {
             if (ModelState.IsValid)
             {

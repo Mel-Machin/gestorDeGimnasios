@@ -6,12 +6,7 @@
 @model gestorDeGimnasios.Models.Socio
 
 
-<form asp-action="AccionEditarSocio" method="post">
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.IdSocio, htmlAttributes: new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.IdSocio, new { @class = "form-control", type = "number", @readonly = "readonly" })
-    </div>
+<form asp-action="AccionRegistrarSocio" method="post">
 
     <div class="form-group">
         @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label" })
@@ -54,5 +49,5 @@
         @Html.ValidationMessageFor(model => model.IdLocal, "", new { @class = "text-danger" })
     </div>
 
-    <input type="submit" value="Guardar cambios" class="btn btn-primary" />
+    <input type="submit" value="Guardar registro" class="btn btn-primary" />
 </form>

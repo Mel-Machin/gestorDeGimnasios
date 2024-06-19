@@ -6,7 +6,7 @@
 @model gestorDeGimnasios.Models.Responsable
 
 
-<form asp-action="AccionRegistrarResponsable" method="post">
+<form asp-action="AccionEditarResponsable" method="post">
 
     <div class="form-group">
         @Html.LabelFor(model => model.IdResponsable, htmlAttributes: new { @class = "control-label" })
@@ -25,5 +25,5 @@
         @Html.ValidationMessageFor(model => model.Telefono, "", new { @class = "text-danger" })
     </div>
 
-    <input type="submit" value="Guardar" class="btn btn-primary" />
+    <input type="submit" value="Guardar cambios" class="btn btn-primary" />
 </form>

@@ -2,7 +2,9 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 
-
+<h2>
+    Administrar Máquinas
+</h2>
 <form asp-action="AccionFiltrarPorLocal" method="post">
     <div class="form-group">
         <label>ID local</label>
@@ -11,7 +13,7 @@
     <button type="submit" class="btn btn-primary">Filtrar</button>
 </form>
 
-<form asp-action="AccionOrdenarFecha" method="post">
+<form asp-action="AccionOrdenarPorFecha" method="post">
     <label>Ordenar por fecha</label>
         <select name="opcion">
              <option value="Desc">Descendente</option>
@@ -20,12 +22,13 @@
     <button type="submit" class="btn btn-primary">Ordenar</button>
 </form>
 
-@Html.ActionLink("Agregar", "RegistrarMaquina")
+
+@Html.ActionLink("Registrar", "RegistrarMaquina")
 <h2>@ViewData["TituloLista"]</h2>
 <table>
     <thead>
         <tr>
-            <th>Id maquina</th>
+            <th>Id</th>
             <th>Id tipo de maquina</th>
             <th>Id Local</th>
             <th>Fecha compra</th>

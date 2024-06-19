@@ -58,7 +58,7 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
         public bool ModificarResponsable(Responsable responsable, int idResponsable) {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
-            string consulta = "UPDATE Responsables SET nombre_responsable = @Nombre, Teléfono_responsable = @Telefono WHERE id_responsable = @idResponsable";
+            string consulta = "UPDATE Responsables SET nombre_responsable = @Nombre, telefono_responsable = @Telefono WHERE id_responsable = @idResponsable";
             SqlCommand sqlCommand = new SqlCommand(consulta, conexion);
             sqlCommand.Parameters.AddWithValue("@idResponsable", idResponsable);
             sqlCommand.Parameters.AddWithValue("@Nombre", responsable.Nombre);

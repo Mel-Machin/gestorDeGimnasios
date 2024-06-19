@@ -16,6 +16,5 @@
         public string Nombre { get{ return this.nombre; } set{this.nombre = value ; } }
         public string Apellido { get{ return this.apellido; } set{this.apellido =  value ; } }
 
-
     }
 }

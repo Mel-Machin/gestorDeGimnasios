@@ -52,7 +52,7 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
         public bool registrarLocal(Local local)  {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
-            string consulta = "INSERT INTO locales (Nombre_local, Ciudad_local, Dirección_local, Teléfono_local, Responsable_local) VALUES (@Nombre, @Ciudad, @Direccion, @Telefono, @IdResponsable)";
+            string consulta = "INSERT INTO locales (Nombre_local, Ciudad_local, Dirección_local, Teléfono_local, id_responsable) VALUES (@Nombre, @Ciudad, @Direccion, @Telefono, @IdResponsable)";
             SqlCommand sqlCommand = new SqlCommand(consulta, conexion);
             sqlCommand.Parameters.AddWithValue("@Nombre", local.Nombre);
             sqlCommand.Parameters.AddWithValue("@Ciudad", local.Ciudad);

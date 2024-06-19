@@ -15,27 +15,27 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", type = "text", @readonly = "readonly" })
+        @Html.EditorFor(model => model.Nombre, new { @class = "form-control", type = "text", @readonly = "readonly" })
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.Ciudad, htmlAttributes: new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.Ciudad, new { @class = "form-control", type = "text", @readonly = "readonly" })
+        @Html.EditorFor(model => model.Ciudad, new { @class = "form-control", type = "text", @readonly = "readonly" })
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.Direccion, htmlAttributes: new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.Direccion, new { @class = "form-control", type = "text", @readonly = "readonly" })
+        @Html.EditorFor(model => model.Direccion, new { @class = "form-control", type = "text", @readonly = "readonly" })
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.Telefono, htmlAttributes: new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.Telefono, new { @class = "form-control", type = "text", @readonly = "readonly" })
+        @Html.EditorFor(model => model.Telefono, new { @class = "form-control", type = "text", @readonly = "readonly" })
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.IdResponsable, htmlAttributes: new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.IdResponsable, new { @class = "form-control", type = "number", @readonly = "readonly" })
+        @Html.EditorFor(model => model.IdResponsable, new { @class = "form-control", type = "number", @readonly = "readonly" })
     </div>
     <input type="submit" value="Eliminar" class="btn btn-primary" />
 </form>

@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <Content Remove="Views\GestionarEjercicio\RegistrarEjercicio.cshtml" />
+    <Content Remove="Views\GestionarSocio\RegistrarSocio.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,10 +32,16 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Views\GestionarEjercicio\RegistrarEjercicio.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\GestionarSocio\RegistrarSocio.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="Views\GestionarEjercicio\RegistrarEjercicio.cshtml" />
+    <None Include="Views\GestionarSocio\RegistrarSocio.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\GestionarSocio\RegistrarSocio.cshtml" />
   </ItemGroup>
 
 </Project>
