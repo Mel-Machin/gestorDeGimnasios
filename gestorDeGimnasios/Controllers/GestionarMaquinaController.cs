@@ -4,15 +4,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace gestorDeGimnasios.Controllers
 {
-    public class GestionarMaquinaController : Controller{
+    public class GestionarMaquinaController : Controller
+    {
 
         //Vista principal de Gestion de Maquinas 
         public ActionResult GestionandoMaquina()
         {
-            List<Maquina> maquinas = new MaquinaRepositorio().obtenerMaquinasRegistradas();
+            List<Maquina> maquinas = new MaquinaRepositorio().ObtenerMaquinasRegistradas();
             ViewData["TituloLista"] = "Lista de maquinas:";
             return View(maquinas);
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -21,14 +23,14 @@ namespace gestorDeGimnasios.Controllers
             if (ModelState.IsValid)
             {
                 Local local = new Local();
-                local.IdLocal=idLocal;
+                local.IdLocal = idLocal;
                 List<Maquina> maquinasFiltradas = new MaquinaRepositorio().ObtenerMaquinasPorLocal(local);
-                ViewData["TituloLista"] = "Lista de maquinas del local "+ idLocal;
+                ViewData["TituloLista"] = "Lista de maquinas del local " + idLocal;
                 return View("GestionandoMaquina", maquinasFiltradas); // Devuelve la vista GestionandoMaquina con las máquinas filtradas por local.
 
             }
             ViewData["TituloLista"] = "Lista de maquinas:";
-            List<Maquina> maquinas = new MaquinaRepositorio().obtenerMaquinasRegistradas();
+            List<Maquina> maquinas = new MaquinaRepositorio().ObtenerMaquinasRegistradas();
 
             return View("GestionandoMaquina", maquinas); // Devuelve la vista gestionandoMaquina con todas las maquinas.
         }
@@ -40,26 +42,28 @@ namespace gestorDeGimnasios.Controllers
             if (ModelState.IsValid)
             {
 
-                List<Maquina> maquinasFiltradas = new MaquinaRepositorio().ordenarMaquinasPorFechaCompra(opcion);
-                ViewData["TituloLista"] = "Lista de maquinas ordenadas de manera "+ (opcion == "Desc" ? "descendente." : "ascendente."); ;
+                List<Maquina> maquinasFiltradas = new MaquinaRepositorio().OrdenarMaquinasPorFechaCompra(opcion);
+                ViewData["TituloLista"] = "Lista de maquinas ordenadas de manera " + (opcion == "Desc" ? "descendente." : "ascendente."); ;
                 return View("GestionandoMaquina", maquinasFiltradas); // Devuelve la vista GestionandoMaquina con las máquinas filtradas (ordenadas).
 
             }
-            List<Maquina> maquinas = new MaquinaRepositorio().obtenerMaquinasRegistradas();
+            List<Maquina> maquinas = new MaquinaRepositorio().ObtenerMaquinasRegistradas();
             ViewData["TituloLista"] = "Lista de maquinas:";
             return View("GestionandoMaquina", maquinas); // Devuelve la vista gestionandoMaquina con todas las maquinas.
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CalcularVidaUtil(int idMaquina){ 
-            if (ModelState.IsValid){
-                int vidaUtilRestante = new MaquinaRepositorio().calcularVidaUtilRestante(idMaquina);
+        public ActionResult CalcularVidaUtil(int idMaquina)
+        {
+            if (ModelState.IsValid)
+            {
+                int vidaUtilRestante = new MaquinaRepositorio().CalcularVidaUtilRestante(idMaquina);
                 ViewData["VidaUtilRestante_" + idMaquina] = vidaUtilRestante;
-            }  
-                // Vuelve a cargar la lista de máquinas y la vista principal
-                List<Maquina> maquinas = new MaquinaRepositorio().obtenerMaquinasRegistradas();
-                return View("GestionandoMaquina", maquinas);
+            }
+            // Vuelve a cargar la lista de máquinas y la vista principal
+            List<Maquina> maquinas = new MaquinaRepositorio().ObtenerMaquinasRegistradas();
+            return View("GestionandoMaquina", maquinas);
         }
 
 
@@ -68,7 +72,11 @@ namespace gestorDeGimnasios.Controllers
         {
             if (idMaquina != 0)
             {
-                Maquina maquina = new MaquinaRepositorio().obtenerMaquina(idMaquina);
+                List<Local> locales = new LocalRepositorio().ObtenerLocalesRegistrados();
+                ViewData["locales"] = locales;
+                List<TipoMaquina> tiposMaquinas = new TipoMaquinaRepositorio().ObtenerTiposMaquinasRegistradas();
+                ViewData["tiposMaquinas"] = tiposMaquinas;
+                Maquina maquina = new MaquinaRepositorio().ObtenerMaquina(idMaquina);
                 return View(maquina);
             }
             else
@@ -83,7 +91,7 @@ namespace gestorDeGimnasios.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool resultado = new MaquinaRepositorio().modificarMaquina(maquina, maquina.IdMaquina);
+                bool resultado = new MaquinaRepositorio().ModificarMaquina(maquina, maquina.IdMaquina);
                 if (resultado)
                 {
                     return RedirectToAction("GestionandoMaquina");
@@ -98,7 +106,7 @@ namespace gestorDeGimnasios.Controllers
         {
             if (idMaquina != 0)
             {
-                Maquina maquina = new MaquinaRepositorio().obtenerMaquina(idMaquina);
+                Maquina maquina = new MaquinaRepositorio().ObtenerMaquina(idMaquina);
                 return View(maquina);
             }
             else
@@ -112,28 +120,33 @@ namespace gestorDeGimnasios.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool resultado = new MaquinaRepositorio().eliminarMaquina(maquina.IdMaquina);
+                bool resultado = new MaquinaRepositorio().EliminarMaquina(maquina.IdMaquina);
                 if (resultado)
                 {
                     return RedirectToAction("GestionandoMaquina");
                 }
             }
-            return View(maquina);
+            return RedirectToAction("GestionandoMaquina");
         }
 
 
         //Vista de registrar maquina
         public ActionResult RegistrarMaquina()
         {
+            List<Local> locales = new LocalRepositorio().ObtenerLocalesRegistrados();
+            ViewData["locales"] = locales;
+            List<TipoMaquina> tiposMaquinas = new TipoMaquinaRepositorio().ObtenerTiposMaquinasRegistradas();
+            ViewData["tiposMaquinas"] = tiposMaquinas;
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AccionRegistrarMaquina(Maquina maquina)
         {
+        
             if (ModelState.IsValid)
             {
-                bool resultado = new MaquinaRepositorio().registrarMaquina(maquina);
+                bool resultado = new MaquinaRepositorio().RegistrarMaquina(maquina);
                 if (resultado)
                 {
                     return RedirectToAction("GestionandoMaquina");

@@ -3,7 +3,8 @@
 
 namespace gestorDeGimnasios.Data
 {
-    public class Connection { 
+    public class Connection
+    {
         public SqlConnection obtenerConexion()
         {
             string datosConexion = @"Data Source=ELBRUJOAQUINO\SQLEXPRESS;Initial Catalog=Gym;Integrated Security=True;Encrypt=False;";
@@ -11,6 +12,6 @@ namespace gestorDeGimnasios.Data
             SqlConnection conexion = new SqlConnection(datosConexion);
             return conexion;
         }
-   
+
     }
 }

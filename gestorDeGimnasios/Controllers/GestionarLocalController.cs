@@ -6,38 +6,76 @@ namespace gestorDeGimnasios.Controllers
 {
     public class GestionarLocalController : Controller
     {
-        
+
         // Vista principal de Gestion de locales
-        public ActionResult GestionandoLocal() { 
-            List<Local> locales = new LocalRepositorio().obtenerLocalesRegistrados();
+        public ActionResult GestionandoLocal()
+        {
+            List<Local> locales = new LocalRepositorio().ObtenerLocalesRegistrados();
             return View(locales);
         }
 
 
         //Vista de registrar local
-        public ActionResult RegistrarLocal() { 
+        public ActionResult RegistrarLocal()
+        {
+
+            List<Responsable> responsables = new ResponsableReposiotorio().ObtenerResponsablesRegistrados();
+            ViewData["responsables"] = responsables;
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AccionRegistrarLocal(Local local)
         {
-            if (ModelState.IsValid) { 
-                bool resultado = new LocalRepositorio().registrarLocal(local);
+            if (ModelState.IsValid)
+            {
+                bool resultado = new LocalRepositorio().RegistrarLocal(local);
                 if (resultado)
                 {
                     return RedirectToAction("GestionandoLocal");
                 }
                 else
                 {
-                    ModelState.AddModelError("","Error al registrar el local.");
+                    ModelState.AddModelError("", "Error al registrar el local.");
                 }
             }
             return View(local);
         }
 
+
         // Vista de editar local
         public ActionResult EditarLocal(int idLocal)
+        {
+            if (idLocal != 0)
+            {
+                List<Responsable> responsables = new ResponsableReposiotorio().ObtenerResponsablesRegistrados();
+                ViewData["responsables"] = responsables;
+                Local local = new LocalRepositorio().ObtenerLocal(idLocal);
+                return View(local);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AccionEditarLocal(Local local)
+        {
+            if (!ModelState.IsValid)
+            {
+                bool resultado = new LocalRepositorio().ModificarLocal(local, local.IdLocal);
+                if (resultado)
+                {
+                    return RedirectToAction("GestionandoLocal");
+                }
+            }
+            return View(local);
+        }
+
+
+        //Vista de eliminar local
+        public ActionResult EliminarLocal(int idLocal)
         {
             if (idLocal != 0)
             {
@@ -49,37 +87,13 @@ namespace gestorDeGimnasios.Controllers
                 return NotFound();
             }
         }
-            
-        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AccionEditarLocal(Local local) {
-            if (!ModelState.IsValid) {
-                bool resultado = new LocalRepositorio().modificarLocal(local, local.IdLocal);
-                if (resultado) { 
-                    return RedirectToAction("GestionandoLocal");
-                }
-            }
-            return View(local);
-        }
-
-
-        //Vista de eliminar local
-        public ActionResult EliminarLocal(int idLocal) {
-            if (idLocal != 0) {
-                Local local = new LocalRepositorio().ObtenerLocal(idLocal);
-                return View(local);
-            }else{
-                return NotFound();
-            }
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult AccionEliminarLocal(Local local) {
+        public ActionResult AccionEliminarLocal(Local local)
+        {
             if (!ModelState.IsValid)
             {
-                bool resultado = new LocalRepositorio().eliminarLocal(local.IdLocal);
+                bool resultado = new LocalRepositorio().EliminarLocal(local.IdLocal);
                 if (resultado)
                 {
                     return RedirectToAction("GestionandoLocal");
@@ -87,7 +101,6 @@ namespace gestorDeGimnasios.Controllers
             }
             return View(local);
         }
-
 
     }
 }

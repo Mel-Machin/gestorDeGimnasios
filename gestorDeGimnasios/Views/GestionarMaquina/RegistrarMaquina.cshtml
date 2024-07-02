@@ -10,8 +10,26 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.IdLocal, htmlAttributes: new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.IdLocal, new { @class = "form-control", type = "number" })
+        <select asp-for="IdLocal" class="form-control">
+            @foreach (Local local in (IEnumerable<Local>)@ViewData["locales"])
+            {
+                <option value="@local.IdLocal">@local.Nombre</option>
+            }
+        </select>
+
         @Html.ValidationMessageFor(model => model.IdLocal, "", new { @class = "text-danger" })
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.IdTipoMaquina, htmlAttributes: new { @class = "control-label" })
+        <select asp-for="IdTipoMaquina" class="form-control">
+            @foreach (TipoMaquina tipoMaquina in (IEnumerable<TipoMaquina>)@ViewData["tiposMaquinas"])
+            {
+                <option value="@tipoMaquina.IdTipoMaquina">@tipoMaquina.Nombre</option>
+            }
+        </select>
+        @Html.ValidationMessageFor(model => model.IdTipoMaquina, "", new { @class = "text-danger" })
     </div>
 
     <div class="form-group">

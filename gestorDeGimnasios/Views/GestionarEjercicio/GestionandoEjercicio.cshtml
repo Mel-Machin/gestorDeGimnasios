@@ -12,7 +12,7 @@
         <tr>
             <th>Id</th>
             <th>Descripción</th>
-            <th>Id tipo de maquina</th>
+            <th>Tipo de maquina</th>
             <th>Rutinas Relacionadas</th>
         </tr>
 
@@ -23,7 +23,7 @@
             <tr>
                 <td>@Html.DisplayFor(modelItem => ejercicio.IdEjercicio)</td>
                 <td>@Html.DisplayFor(modelItem => ejercicio.Descripcion)</td>
-                <td>@Html.DisplayFor(modelItem => ejercicio.IdTipoMaquina)</td>
+                <td>@Html.DisplayFor(modelItem => ejercicio.TipoMaquina.Nombre)</td>
                 <td> 
                     @Html.ActionLink("Editar", "EditarEjercicio", new { idEjercicio = ejercicio.IdEjercicio })
                     @Html.ActionLink("Eliminar", "EliminarEjercicio", new { idEjercicio = ejercicio.IdEjercicio })

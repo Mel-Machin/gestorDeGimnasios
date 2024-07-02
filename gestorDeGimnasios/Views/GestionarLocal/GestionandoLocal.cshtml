@@ -17,7 +17,7 @@
             <th>Ciudad</th>
             <th>Dirección</th>
             <th>Teléfono</th>
-            <th>Id Responsable</th>
+            <th>Responsable</th>
         </tr>
 
     </thead>
@@ -30,10 +30,10 @@
                 <td>@Html.DisplayFor(modelItem => local.Ciudad)</td>
                 <td>@Html.DisplayFor(modelItem => local.Direccion)</td>
                 <td>@Html.DisplayFor(modelItem => local.Telefono)</td>
-                <td>@Html.DisplayFor(modelItem => local.IdResponsable)</td>
+                <td>@Html.DisplayFor(modelItem => local.Responsable.Nombre) </td>
                 <td>
                     @Html.ActionLink("Editar", "EditarLocal", new { idLocal = local.IdLocal })
-                    @Html.ActionLink("Eliminar", "EliminarLocal", new { idLocal = local.IdLocal})
+                    @Html.ActionLink("Eliminar", "EliminarLocal", new { idLocal = local.IdLocal })
                 </td>
             </tr>
         }

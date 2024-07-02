@@ -1,10 +1,13 @@
 ﻿using gestorDeGimnasios.Data;
 using Microsoft.Data.SqlClient;
 
-namespace gestorDeGimnasios.Models.DataObjets.DAO{
-    public class SesionRepositorio{
+namespace gestorDeGimnasios.Models.DataObjets.DAO
+{
+    public class SesionRepositorio
+    {
 
-        public Usuario obtenerDatosUsuario(int idUsuario){
+        public Usuario ObtenerDatosUsuario(int idUsuario)
+        {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
             string consulta = "SELECT * FROM usuarios WHERE idUsuario = @idUsuario";
@@ -12,8 +15,10 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO{
             sqlCommand.Parameters.AddWithValue("@idUsuario", idUsuario);
             SqlDataReader lector = sqlCommand.ExecuteReader();
             Usuario usuario = new();
-            if (lector.Read()){
-                usuario = new Usuario{
+            if (lector.Read())
+            {
+                usuario = new Usuario
+                {
                     IdUsuario = lector.GetInt32(0),
                     Nombre = lector.GetString(1),
                     Apellido = lector.GetString(2),
@@ -24,7 +29,8 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO{
             return usuario;
         }
 
-        public bool registrarUsuario(Usuario usuario) {
+        public bool RegistrarUsuario(Usuario usuario)
+        {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
             string consulta = "INSERT INTO usuarios (nombreUsuario, password, email, nombre, apellido) VALUES (@NombreUsuario, @Password, @Email, @Nombre, @Apellido)";
@@ -40,7 +46,8 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO{
             return creado > 0;
         }
 
-        public Usuario iniciarSesion(string nombreUsuario, string email, string password) {
+        public Usuario IniciarSesion(string nombreUsuario, string email, string password)
+        {
             Usuario usuario = new();
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();

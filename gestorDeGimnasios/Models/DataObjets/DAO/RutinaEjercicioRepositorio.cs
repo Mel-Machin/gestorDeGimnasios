@@ -1,10 +1,7 @@
-﻿using gestorDeGimnasios.Data;
-using Microsoft.Data.SqlClient;
-
-namespace gestorDeGimnasios.Models.DataObjets.DAO
+﻿namespace gestorDeGimnasios.Models.DataObjets.DAO
 {
     public class RutinaEjercicioRepositorio
-    {
+    {/*
         public bool AgregarEjercicioARutina(int idRutina, int idEjercicio)
         {
             SqlConnection conexion = new Connection().obtenerConexion();
@@ -41,9 +38,10 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             int actualizado = sqlCommand.ExecuteNonQuery();
 
             return actualizado > 0;
-        }
+
+        }*/
     }
 }
 
 
- 
+

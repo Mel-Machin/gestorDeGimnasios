@@ -1,0 +1,51 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model gestorDeGimnasios.Models.SocioRutina
+
+
+<form asp-action="AccionRegistrarSocioRutina" method="post">
+
+    <div class="form-group">
+        <select name="IdSocio">
+            @foreach (Socio socio in (IEnumerable<Socio>)@ViewData["socios"])
+            {
+                <option value="@socio.IdSocio">@socio.Nombre @socio.Apellido</option>
+            }
+        </select>
+        @Html.ValidationMessageFor(model => model.IdSocio, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <select name="IdRutina">
+            @foreach (Rutina rutina in (IEnumerable<Rutina>)@ViewData["rutinas"])
+            {
+                <option value="@rutina.IdRutina">@rutina.Descripcion</option>
+            }
+        </select>
+        @Html.ValidationMessageFor(model => model.IdRutina, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FechaInicio, htmlAttributes: new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.FechaInicio, new { @class = "form-control", type = "date" })
+        @Html.ValidationMessageFor(model => model.FechaInicio, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FechaFin, htmlAttributes: new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.FechaFin, new { @class = "form-control", type = "date" })
+        @Html.ValidationMessageFor(model => model.FechaFin, "", new { @class = "text-danger" })
+    </div>
+
+    <div>
+        @Html.LabelFor(model => model.Calificacion, htmlAttributes: new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.Calificacion, new { @class = "form-control", type = "number" })
+        @Html.ValidationMessageFor(model => model.Calificacion, "", new { @class = "text-danger" })
+    </div>
+
+    <input type="submit" value="Guardar registro" class="btn btn-primary" />
+</form>

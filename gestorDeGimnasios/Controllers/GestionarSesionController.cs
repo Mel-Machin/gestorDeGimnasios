@@ -1,18 +1,23 @@
-﻿using gestorDeGimnasios.Models.DataObjets.DAO;
-using gestorDeGimnasios.Models;
+﻿using gestorDeGimnasios.Models;
+using gestorDeGimnasios.Models.DataObjets.DAO;
 
-namespace gestorDeGimnasios.Controllers{
-    public class GestionarSesionController{
-        public Usuario obtenerDatosUsuario(int idUsuario){
-            return new SesionRepositorio().obtenerDatosUsuario(idUsuario);
+namespace gestorDeGimnasios.Controllers
+{
+    public class GestionarSesionController
+    {
+        public Usuario ObtenerDatosUsuario(int idUsuario)
+        {
+            return new SesionRepositorio().ObtenerDatosUsuario(idUsuario);
         }
 
-        public bool registrarUsuario(Usuario usuario) { 
-            return new SesionRepositorio().registrarUsuario(usuario); 
+        public bool RegistrarUsuario(Usuario usuario)
+        {
+            return new SesionRepositorio().RegistrarUsuario(usuario);
         }
 
-        public Usuario iniciarSesion(string nombreUsuario, string email, string password){ 
-            return new SesionRepositorio().iniciarSesion(nombreUsuario, email, password); 
+        public Usuario IniciarSesion(string nombreUsuario, string email, string password)
+        {
+            return new SesionRepositorio().IniciarSesion(nombreUsuario, email, password);
         }
 
     }

@@ -32,10 +32,15 @@
         @Html.ValidationMessageFor(model => model.Telefono, "", new { @class = "text-danger" })
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.IdResponsable, htmlAttributes: new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.IdResponsable, new { @class = "form-control", type = "number" })
+    <div>
+        <select name="idResponsable">
+            @foreach (Responsable responsable in (IEnumerable<Responsable>)ViewData["responsables"])
+            {
+                <option value="responsable.IdResponsable"> @responsable.Nombre </option>
+            }
+        </select>
         @Html.ValidationMessageFor(model => model.IdResponsable, "", new { @class = "text-danger" })
     </div>
+
     <input type="submit" value="Guardar registro" class="btn btn-primary" />
 </form>

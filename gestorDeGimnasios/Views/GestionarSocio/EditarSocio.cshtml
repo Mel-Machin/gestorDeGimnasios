@@ -49,8 +49,12 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.IdLocal, htmlAttributes: new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.IdLocal, new { @class = "form-control", type = "number" })
+        <select name="IdLocal">
+            @foreach (Local local in (IEnumerable<Local>)@ViewData["locales"])
+            {
+                <option value="@local.IdLocal">@local.Nombre</option>
+            }
+        </select>
         @Html.ValidationMessageFor(model => model.IdLocal, "", new { @class = "text-danger" })
     </div>
 

@@ -6,7 +6,7 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
 {
     public class MaquinaRepositorio
     {
-        public List<Maquina> obtenerMaquinasRegistradas()
+        public List<Maquina> ObtenerMaquinasRegistradas()
         {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
@@ -19,12 +19,14 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             {
                 Maquina maquina = new Maquina();
                 maquina.IdMaquina = (int)lector.GetDecimal(0);
-                maquina.IdLocal= (int)lector.GetDecimal(2);
+                maquina.IdLocal = (int)lector.GetDecimal(2);
+                maquina.Local = new LocalRepositorio().ObtenerLocal(maquina.IdLocal);
                 maquina.FechaCompra = lector.GetDateTime(3);
                 maquina.Precio = lector.GetDecimal(4);
                 maquina.VidaUtil = (int)lector.GetDecimal(5);
                 maquina.IdTipoMaquina = lector.GetInt32(1);
                 maquina.Disponibilidad = lector.GetString(6);
+                maquina.TipoMaquina = new TipoMaquinaRepositorio().ObtenerTipoMaquina(maquina.IdTipoMaquina);
                 maquinas.Add(maquina);
             }
 
@@ -32,7 +34,7 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             return maquinas;
         }
 
-        public Maquina obtenerMaquina(int idMaquina)
+        public Maquina ObtenerMaquina(int idMaquina)
         {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
@@ -44,16 +46,19 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             Maquina maquina = new Maquina();
             maquina.IdMaquina = (int)lector.GetDecimal(0);
             maquina.IdLocal = (int)lector.GetDecimal(2);
+            maquina.Local = new LocalRepositorio().ObtenerLocal(maquina.IdLocal);
             maquina.FechaCompra = lector.GetDateTime(3);
             maquina.Precio = lector.GetDecimal(4);
             maquina.VidaUtil = (int)lector.GetDecimal(5);
             maquina.IdTipoMaquina = lector.GetInt32(1);
+            maquina.TipoMaquina = new TipoMaquinaRepositorio().ObtenerTipoMaquina(maquina.IdTipoMaquina);
             maquina.Disponibilidad = lector.GetString(6);
             conexion.Close();
             return maquina;
         }
 
-        public bool registrarMaquina(Maquina maquina) {
+        public bool RegistrarMaquina(Maquina maquina)
+        {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
             string consulta = "INSERT INTO maquinas (Id_tipo_maquina, Id_local, Fecha_compra, Precio_compra, Vida_util, Disponibilidad) VALUES (@IdTipoMaquina,@IdLocal,@FechaCompra,@Precio,@VidaUtil,@Disponibilidad)";
@@ -70,7 +75,8 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             return creado > 0;
         }
 
-        public bool eliminarMaquina(int idMaquina) {
+        public bool EliminarMaquina(int? idMaquina)
+        {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
             string consulta = "DELETE from maquinas WHERE id_maquina = @IdMaquina";
@@ -82,7 +88,8 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             return afectados > 0;
         }
 
-        public bool modificarMaquina(Maquina maquina, int idMaquina) {
+        public bool ModificarMaquina(Maquina maquina, int? idMaquina)
+        {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
             string consulta = "UPDATE maquinas SET Id_tipo_maquina = @IdTipoMaquina, Id_local = @IdLocal, Fecha_compra= @FechaCompra, Precio_compra= @Precio, Vida_util = @VidaUtil, Disponibilidad = @Disponibilidad WHERE id_maquina = @idMaquina";
@@ -97,10 +104,11 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             int actualizado = sqlCommand.ExecuteNonQuery();
 
             conexion.Close();
-            return actualizado > 0; 
+            return actualizado > 0;
         }
 
-        public List<Maquina> ObtenerMaquinasPorLocal(Local local) {
+        public List<Maquina> ObtenerMaquinasPorLocal(Local local)
+        {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
             string consulta = "SELECT * FROM maquinas WHERE Id_local = @IdLocal";
@@ -126,7 +134,7 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             return maquinas;
         }
 
-        public List<Maquina> ordenarMaquinasPorFechaCompra(string orden)
+        public List<Maquina> OrdenarMaquinasPorFechaCompra(string orden)
         {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
@@ -153,22 +161,26 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             conexion.Close();
             return maquinasOrdenadas;
         }
-    
-        public int calcularVidaUtilRestante(int idMaquina) {
+
+        public int CalcularVidaUtilRestante(int idMaquina)
+        {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
             string consulta = "SELECT dbo.fn_CalcularVidaUtilRestante(@id_maquina) AS VidaUtilRestante";
             SqlCommand sqlCommand = new SqlCommand(consulta, conexion);
             sqlCommand.Parameters.AddWithValue("@id_maquina", idMaquina);
             SqlDataReader lector = sqlCommand.ExecuteReader();
-            
-            if (lector.Read()){
-                
+
+            if (lector.Read())
+            {
+
                 return lector.GetInt32(lector.GetOrdinal("VidaUtilRestante"));
-                
-            }else{
+
+            }
+            else
+            {
                 throw new Exception("No se encontró la máquina especificada.");
-            }          
+            }
         }
 
     }

@@ -29,7 +29,7 @@
     <thead>
         <tr>
             <th>Id</th>
-            <th>Id tipo de maquina</th>
+            <th>Tipo maquina</th>
             <th>Id Local</th>
             <th>Fecha compra</th>
             <th>Vida útil</th>
@@ -43,8 +43,8 @@
         {
             <tr>
                 <td>@Html.DisplayFor(modelItem => maquina.IdMaquina)</td>
-                <td>@Html.DisplayFor(modelItem => maquina.IdTipoMaquina)</td>
-                <td>@Html.DisplayFor(modelItem => maquina.IdLocal)</td>
+                <td>@Html.DisplayFor(modelItem => maquina.TipoMaquina.Nombre)</td>
+                <td>@Html.DisplayFor(modelItem => maquina.Local.Nombre)</td>
                 <td>@Html.DisplayFor(modelItem => maquina.FechaCompra)</td>
                 <td>@Html.DisplayFor(modelItem => maquina.VidaUtil)</td>
                 <td>@Html.DisplayFor(modelItem => maquina.Precio)</td>

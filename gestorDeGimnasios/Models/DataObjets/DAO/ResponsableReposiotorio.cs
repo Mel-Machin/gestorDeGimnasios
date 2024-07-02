@@ -16,7 +16,7 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             while (lector.Read())
             {
                 Responsable responsable = new Responsable();
-                responsable.IdResponsable= lector.GetInt32(0);
+                responsable.IdResponsable = lector.GetInt32(0);
                 responsable.Nombre = lector.GetString(1);
                 responsable.Telefono = lector.GetString(2);
                 responsables.Add(responsable);
@@ -26,21 +26,28 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             conexion.Close();
             return responsables;
         }
-        public Responsable ObtenerResponsable(int idResponsable)
+        public Responsable ObtenerResponsable(int? idResponsable)
         {
-            SqlConnection conexion = new Connection().obtenerConexion();
-            conexion.Open();
-            string consulta = "SELECT * FROM Responsables WHERE id_responsable = @IdResponsable";
-            SqlCommand sqlComando = new SqlCommand(consulta, conexion);
-            sqlComando.Parameters.AddWithValue("@IdResponsable", idResponsable);
-            SqlDataReader lector = sqlComando.ExecuteReader();
-            lector.Read();
+            if (idResponsable != null)
+            {
+                SqlConnection conexion = new Connection().obtenerConexion();
+                conexion.Open();
+                string consulta = "SELECT * FROM Responsables WHERE id_responsable = @IdResponsable";
+                SqlCommand sqlComando = new SqlCommand(consulta, conexion);
+                sqlComando.Parameters.AddWithValue("@IdResponsable", idResponsable);
+                SqlDataReader lector = sqlComando.ExecuteReader();
+                lector.Read();
                 Responsable responsable = new Responsable();
                 responsable.IdResponsable = lector.GetInt32(0);
                 responsable.Nombre = lector.GetString(1);
                 responsable.Telefono = lector.GetString(2);
-            conexion.Close();
-            return responsable;
+                conexion.Close();
+                return responsable;
+            }
+            else
+            {
+                return null;
+            }
         }
         public bool RegistrarResponsable(Responsable responsable)
         {
@@ -55,7 +62,8 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             conexion.Close();
             return creado > 0;
         }
-        public bool ModificarResponsable(Responsable responsable, int idResponsable) {
+        public bool ModificarResponsable(Responsable responsable, int idResponsable)
+        {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
             string consulta = "UPDATE Responsables SET nombre_responsable = @Nombre, telefono_responsable = @Telefono WHERE id_responsable = @idResponsable";
@@ -63,13 +71,14 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             sqlCommand.Parameters.AddWithValue("@idResponsable", idResponsable);
             sqlCommand.Parameters.AddWithValue("@Nombre", responsable.Nombre);
             sqlCommand.Parameters.AddWithValue("Telefono", responsable.Telefono);
-            
+
             int actualizado = sqlCommand.ExecuteNonQuery();
 
             conexion.Close();
             return actualizado > 0;
         }
-        public bool EliminarResponsable(int idResponsable) {
+        public bool EliminarResponsable(int idResponsable)
+        {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
             string consulta = "DELETE from Responsables WHERE id_responsable = @idResponsable";

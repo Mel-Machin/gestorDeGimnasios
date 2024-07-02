@@ -1,9 +1,13 @@
 ﻿using gestorDeGimnasios.Models;
+using gestorDeGimnasios.Models.DataObjets.DAO;
 using Microsoft.Data.SqlClient;
 
-namespace gestorDeGimnasios.Data{
-    public class EjercicioRepositorio{
-        public List<Ejercicio> ObtenerEjerciciosRegistrados(){
+namespace gestorDeGimnasios.Data
+{
+    public class EjercicioRepositorio
+    {
+        public List<Ejercicio> ObtenerEjerciciosRegistrados()
+        {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
             string consulta = "SELECT * FROM ejercicios";
@@ -12,13 +16,12 @@ namespace gestorDeGimnasios.Data{
             List<Ejercicio> ejercicios = new List<Ejercicio>();
             while (lector.Read())
             {
-
                 Ejercicio ejercicio = new Ejercicio();
                 ejercicio.IdEjercicio = (int)lector.GetDecimal(0);
                 ejercicio.Descripcion = lector.GetString(1);
-                ejercicio.IdTipoMaquina = (int)lector.GetInt32(3);
+                ejercicio.IdTipoMaquina = lector.IsDBNull(3) ? null : lector.GetInt32(3);
+                ejercicio.TipoMaquina = new TipoMaquinaRepositorio().ObtenerTipoMaquina(ejercicio.IdTipoMaquina);
                 ejercicios.Add(ejercicio);
-
             }
 
             conexion.Close();
@@ -29,18 +32,23 @@ namespace gestorDeGimnasios.Data{
         {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
-            string consulta = "SELECT * FROM ejercicios";
-            SqlCommand comando = new SqlCommand(consulta, conexion);
-            SqlDataReader lector = comando.ExecuteReader();
+            string consulta = "SELECT * FROM ejercicios WHERE id_ejercicio = @IdEjercicio";
+            SqlCommand sqlComando = new SqlCommand(consulta, conexion);
+            sqlComando.Parameters.AddWithValue("@IdEjercicio", idEjercicio);
+            SqlDataReader lector = sqlComando.ExecuteReader();
             lector.Read();
             Ejercicio ejercicio = new Ejercicio();
             ejercicio.IdEjercicio = (int)lector.GetDecimal(0);
             ejercicio.Descripcion = lector.GetString(1);
-            ejercicio.IdTipoMaquina = lector.GetInt32(3);
+            ejercicio.IdTipoMaquina = lector.IsDBNull(3) ? null : lector.GetInt32(3);
+            ejercicio.TipoMaquina = new TipoMaquinaRepositorio().ObtenerTipoMaquina(ejercicio.IdTipoMaquina);
+
             conexion.Close();
             return ejercicio;
         }
-        public bool RegistrarEjercicio(Ejercicio ejercicio){
+
+        public bool RegistrarEjercicio(Ejercicio ejercicio)
+        {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
             string consulta = "INSERT INTO ejercicios (Descripcion_ejercicio, Id_tipo_maquina) VALUES (@Descripcion, @idTipoMaquina)";
@@ -53,7 +61,8 @@ namespace gestorDeGimnasios.Data{
             return creado > 0;
         }
 
-        public bool EliminarEjercicio(int idEjercicio) {
+        public bool EliminarEjercicio(int idEjercicio)
+        {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
             string consulta = "DELETE from ejercicios WHERE id_ejercicio = @idEjercicio";
@@ -63,17 +72,18 @@ namespace gestorDeGimnasios.Data{
 
             conexion.Close();
             return afectados > 0;
-            
+
         }
 
-        public bool ModificarEjercicio(Ejercicio ejercicio, int idEjercicio) {
+        public bool ModificarEjercicio(Ejercicio ejercicio, int idEjercicio)
+        {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
             string consulta = "UPDATE ejercicios SET Descripcion_ejercicio = @Descripcion, Id_tipo_maquina = @IdTipoMaquina WHERE id_Ejercicio = @idEjercicio";
             SqlCommand sqlCommand = new SqlCommand(consulta, conexion);
             sqlCommand.Parameters.AddWithValue("@idEjercicio", idEjercicio);
             sqlCommand.Parameters.AddWithValue("@Descripcion", ejercicio.Descripcion);
-            sqlCommand.Parameters.AddWithValue("@idTipoMaquina", ejercicio.IdTipoMaquina);
+            sqlCommand.Parameters.AddWithValue("@IdTipoMaquina", ejercicio.IdTipoMaquina);
             int actualizado = sqlCommand.ExecuteNonQuery();
 
             conexion.Close();

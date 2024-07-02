@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace gestorDeGimnasios.Controllers
 {
     public class GestionarResponsableController : Controller
-    {   
+    {
         //Vista principal de Gestion de responsables 
         public ActionResult GestionandoResponsable()
         {

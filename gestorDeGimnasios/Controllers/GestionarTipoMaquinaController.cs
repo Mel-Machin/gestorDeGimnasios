@@ -2,8 +2,10 @@
 using gestorDeGimnasios.Models.DataObjets.DAO;
 using Microsoft.AspNetCore.Mvc;
 
-namespace gestorDeGimnasios.Controllers{
-    public class GestionarTipoMaquinaController: Controller{
+namespace gestorDeGimnasios.Controllers
+{
+    public class GestionarTipoMaquinaController : Controller
+    {
 
         //Vista principal de gestionando tipo maquina
         public ActionResult GestionandoTipoMaquina()
@@ -37,14 +39,18 @@ namespace gestorDeGimnasios.Controllers{
         }
 
         //Vista editar tipo maquina
-        public ActionResult EditarTipoMaquina(int idTipoMaquina){
-            if (idTipoMaquina != 0){
+        public ActionResult EditarTipoMaquina(int idTipoMaquina)
+        {
+            if (idTipoMaquina != 0)
+            {
                 TipoMaquina tipoMaquina = new TipoMaquinaRepositorio().ObtenerTipoMaquina(idTipoMaquina);
                 return View(tipoMaquina);
-            }else{
+            }
+            else
+            {
                 return View();
             }
-              
+
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -62,18 +68,23 @@ namespace gestorDeGimnasios.Controllers{
         }
 
         //Vista eliminar tipo maquina
-        public ActionResult EliminarTipoMaquina(int idTipoMaquina){ 
-            if(idTipoMaquina != 0){
+        public ActionResult EliminarTipoMaquina(int idTipoMaquina)
+        {
+            if (idTipoMaquina != 0)
+            {
                 TipoMaquina tipoMaquina = new TipoMaquinaRepositorio().ObtenerTipoMaquina(idTipoMaquina);
                 return View(tipoMaquina);
-            }else{
-                  
+            }
+            else
+            {
+
                 return NotFound();
             }
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AccionEliminarTipoMaquina(TipoMaquina tipoMaquina) {
+        public ActionResult AccionEliminarTipoMaquina(TipoMaquina tipoMaquina)
+        {
             if (ModelState.IsValid)
             {
                 bool resultado = new TipoMaquinaRepositorio().EliminarTipoMaquina(tipoMaquina.IdTipoMaquina);
@@ -85,6 +96,6 @@ namespace gestorDeGimnasios.Controllers{
             return View(tipoMaquina);
         }
 
-        
+
     }
 }

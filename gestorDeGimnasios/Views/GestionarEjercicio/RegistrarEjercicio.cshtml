@@ -7,7 +7,7 @@
 
 
 <form asp-action="AccionRegistrarEjercicio" method="post">
-  
+
     <div class="form-group">
         @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label" })
         @Html.TextBoxFor(model => model.Descripcion, new { @class = "form-control", type = "text" })
@@ -15,8 +15,12 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.IdTipoMaquina, htmlAttributes: new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.IdTipoMaquina, new { @class = "form-control", type = "number" })
+        <select name="IdTipoMaquina">
+            @foreach (TipoMaquina tipoMaquina in (IEnumerable<TipoMaquina>)@ViewData["tiposMaquinas"])
+            {
+                <option value="@tipoMaquina.IdTipoMaquina">@tipoMaquina.Nombre</option>
+            }
+        </select>
         @Html.ValidationMessageFor(model => model.IdTipoMaquina, "", new { @class = "text-danger" })
     </div>
 

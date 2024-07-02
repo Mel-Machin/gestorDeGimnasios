@@ -4,13 +4,23 @@
 @{
 }
 
-<h2>
-    Administrar Socios
-</h2>
+<h2>Administrar Socios</h2>
+
+<form asp-action="AccionFiltrarSocioPorTipo" method="post">
+    <label>Filtrar socios según tipo</label>
+    <select name="tipoSocio">
+            <option value="básico"> Básico</option>
+            <option value="estandar"> Estándar</option>
+            <option value="premium"> Premium</option>
+    </select>
+    <button type="submit" class="btn btn-primary">Buscar</button>
+</form>
+
 @Html.ActionLink("Registrar", "RegistrarSocio")
 
 <table>
     <thead>
+
         <tr>
             <th>Id</th>
             <th>Nombre</th>
@@ -18,7 +28,7 @@
             <th>Tipo</th>
             <th>Teléfono</th>
             <th>Mail</th>
-            <th>Id local</th>
+            <th>Nombre del local</th>
         </tr>
 
     </thead>
@@ -32,11 +42,13 @@
                 <td>@Html.DisplayFor(modelItem => socio.Tipo)</td>
                 <td>@Html.DisplayFor(modelItem => socio.Telefono)</td>
                 <td>@Html.DisplayFor(modelItem => socio.CorreoElectronico)</td>
-                <td>@Html.DisplayFor(modelItem => socio.IdLocal)</td>
+                <td>@Html.DisplayFor(modelItem => socio.Local.Nombre)</td>
 
                 <td>
                     @Html.ActionLink("Editar", "EditarSocio", new { idSocio = socio.IdSocio })
                     @Html.ActionLink("Eliminar", "EliminarSocio", new { idSocio = socio.IdSocio })
+                    @Html.ActionLink("ver Rutinas", "GestionandoSocioRutina", "GestionarSocioRutina", new { idSocio = socio.IdSocio })
+
             </tr>
         }
 
