@@ -51,7 +51,9 @@ namespace gestorDeGimnasios.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (!(new ResponsableReposiotorio().ExisteUsuarioResponsable(responsable.NombreUsuario)))
+                Responsable responsableAEditar = new ResponsableReposiotorio().ObtenerResponsable(responsable.IdResponsable);
+
+                if (!(new ResponsableReposiotorio().ExisteUsuarioResponsable(responsable.NombreUsuario)) || responsable.NombreUsuario == responsableAEditar.NombreUsuario)
                 {
                     bool resultado = new ResponsableReposiotorio().ModificarResponsable(responsable);
                     if (resultado)
