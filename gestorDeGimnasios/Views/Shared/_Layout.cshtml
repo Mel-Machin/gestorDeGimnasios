@@ -1,5 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
+    @inject IHttpContextAccessor context;
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,20 +13,43 @@
 <body>
     <header>
         <nav>
-            <a asp-controller="GestionarMaquina" asp-action="GestionandoMaquina">Gestionar maquinas</a>
-            <a asp-controller="GestionarTipoMaquina" asp-action="GestionandoTipoMaquina">Gestionar tipos de maquinas</a>
-            <a asp-controller="GestionarRutina" asp-action="GestionandoRutina">Gestionar rutinas</a>
-            <a asp-controller="GestionarEjercicio" asp-action="GestionandoEjercicio">Gestionar ejercicios</a>
-            <a asp-controller="GestionarResponsable" asp-action="GestionandoResponsable" >Gestionar responsables</a>
-            <a asp-controller="GestionarLocal" asp-action="GestionandoLocal" >Gestionar locales</a>
-            <a asp-controller="GestionarSocio" asp-action="GestionandoSocio">Gestionar socios</a>
+            @if (context.HttpContext.Session.GetString("tipoUsuario") == "administrador")
+            {
+                <a asp-controller="GestionarMaquina" asp-action="GestionandoMaquina" class="link">Maquinas</a>
+                <a asp-controller="GestionarTipoMaquina" asp-action="GestionandoTipoMaquina" class="link">Tipos de maquinas</a>
+                <a asp-controller="GestionarRutina" asp-action="GestionandoRutina" class="link">Rutinas</a>
+                <a asp-controller="GestionarEjercicio" asp-action="GestionandoEjercicio" class="link">Ejercicios</a>
+                <a asp-controller="GestionarResponsable" asp-action="GestionandoResponsable" class="link">Responsables</a>
+                <a asp-controller="GestionarLocal" asp-action="GestionandoLocal" class="link">Locales</a>
+                <a asp-controller="GestionarSocio" asp-action="GestionandoSocio" class="link">Socios</a>
+            }
+            else if (context.HttpContext.Session.GetString("tipoUsuario") == "responsable")
+            {
+                <a asp-controller="GestionarMaquina" asp-action="GestionandoMaquina" class="link">Maquinas</a>
+                <a asp-controller="GestionarTipoMaquina" asp-action="GestionandoTipoMaquina" class="link">Tipos de maquinas</a>
+                <a asp-controller="GestionarRutina" asp-action="GestionandoRutina" class="link">Rutinas</a>
+                <a asp-controller="GestionarEjercicio" asp-action="GestionandoEjercicio" class="link">Ejercicios</a>
+                <a asp-controller="GestionarSocio" asp-action="GestionandoSocio" class="link">Socios</a>
+            }
+           
         </nav>
+        @if (!string.IsNullOrEmpty(context.HttpContext.Session.GetString("tipoUsuario")))
+        {
+            <div class="usuarioSesionContenedor">
+                <h4>@context.HttpContext.Session.GetString("tipoUsuario")</h4>
+                <form asp-action="AccionCerrarSesion"asp-controller="Home" method="post">
+                        <button  type="submit" class="boton">Cerrar Sesión</button>
+                </form>
+            </div>
+        }
+
 
     </header>
     <main role="main" class="pb-3">
         @RenderBody()
     </main>
-    <footer>
+    <footer >
+            <p>© 2024 Gym 24. Todos los derechos reservados.</p>
     </footer>
 
 

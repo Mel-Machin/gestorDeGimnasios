@@ -1,0 +1,20 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h2 class="mainTitulo">Confirmar Eliminación Ejercicio de la Rutina</h2>
+<div class="mainContenido">
+    <form asp-action="AccionEliminarEjercicioRutina" method="post" class="formulario">
+
+        <label for="idEjercicio" class="label">ID Ejercicio</label>
+        <input id="idEjercicio" name="idEjercicio" value="@ViewData["idEjercicio"]" class="input" readonly />
+        <div></div>
+
+        <label for="idRutina" class="label">ID Rutina</label>
+        <input id="idRutina" name="idRutina" value="@ViewData["idRutina"]" class="input" readonly />
+        <div></div>
+
+        <input type="submit" value="Eliminar" class="boton" />
+    </form>
+</div>

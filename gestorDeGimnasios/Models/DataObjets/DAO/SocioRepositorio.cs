@@ -34,7 +34,7 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             return socios;
         }
 
-        public Socio ObtenerSocio(int idSocio)
+        public Socio ObtenerSocio(int? idSocio)
         {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
@@ -75,7 +75,7 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             return creado > 0;
         }
 
-        public bool EliminarSocio(int idSocio)
+        public bool EliminarSocio(int? idSocio)
         {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
@@ -88,7 +88,7 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             return afectados > 0;
         }
 
-        public bool ModificarSocio(Socio socio, int idSocio)
+        public bool ModificarSocio(Socio socio, int? idSocio)
         {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
@@ -136,5 +136,7 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             conexion.Close();
             return socios;
         }
+
+        
     }
 }

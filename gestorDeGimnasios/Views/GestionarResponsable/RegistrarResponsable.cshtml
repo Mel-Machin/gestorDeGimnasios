@@ -5,20 +5,28 @@
 }
 @model gestorDeGimnasios.Models.Responsable
 
+<h2 class="mainTitulo">Registrando Responsable</h2>
+<div class="mainContenido">
+    <form asp-action="AccionRegistrarResponsable" method="post" class="formulario">
 
-<form asp-action="AccionRegistrarResponsable" method="post">
+        @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "label" })
+        @Html.TextBoxFor(model => model.Nombre, new { @class = "input", type = "text", placeholder = "Ingrese el nombre", required = "required" })
+        @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "textoAdvertencia" })
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", type = "text" })
-        @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
-    </div>
+        @Html.LabelFor(model => model.Telefono, htmlAttributes: new { @class = "label" })
+        @Html.TextBoxFor(model => model.Telefono, new { @class = "input", type = "text", placeholder = "Ingrese el teléfono", required = "required" })
+        @Html.ValidationMessageFor(model => model.Telefono, "", new { @class = "textoAdvertencia" })
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Telefono, htmlAttributes: new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.Telefono, new { @class = "form-control", type = "text" })
-        @Html.ValidationMessageFor(model => model.Telefono, "", new { @class = "text-danger" })
-    </div>
+        @Html.LabelFor(model => model.NombreUsuario, new { @class = "label" })
+        @Html.TextBoxFor(model => model.NombreUsuario, new { @class = "input", @required = "required", placeholder = "Ingrese nombre de usuario" })
+        @Html.ValidationMessageFor(model => model.NombreUsuario, "", new { @class = "textoAdvertencia" })
 
-    <input type="submit" value="Guardar registro" class="btn btn-primary" />
-</form>
+        <label class="label">Contraseña</label>
+        @Html.PasswordFor(model => model.Contrasenia, new { @class = "input", @required = "required", placeholder="Ingrese una contraseña"})
+        @Html.ValidationMessageFor(model => model.Contrasenia, "", new { @class = "textoAdvertencia" })
+
+        <input type="submit" value="Guardar registro" class="boton" />
+    </form>
+    <div asp-validation-summary="All" class="textoAdvertencia"></div>
+
+</div>

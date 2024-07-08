@@ -2,41 +2,54 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 
-<h2>
-    Administrar Máquinas
-</h2>
-<form asp-action="AccionFiltrarPorLocal" method="post">
-    <div class="form-group">
-        <label>ID local</label>
-        <input name="IdLocal"  />
+<h2 class="mainTitulo" >Administrar Máquinas</h2>
+<div class="mainContenido"> 
+
+    @Html.ActionLink("Registrar", "RegistrarMaquina", null,null, new { @class = "link h3" })
+
+
+   <div class="grupoFiltro">
+
+        <form asp-action="AccionFiltrarPorLocal" method="post" class="filtro">
+            <div >
+                <label for="IdLocal" class="label">Local</label>
+                <select name="IdLocal" id="IdLocal" class="input">
+                    @foreach (Local local in (IEnumerable<Local>)ViewData["locales"])
+                    {
+                        <option value="@local.IdLocal">@local.Nombre</option>
+                    }
+                </select>
+            </div>
+            <button type="submit" class="boton">Filtrar</button>
+        </form>
+
+        <form asp-action="AccionOrdenarPorFecha" method="post" class="filtro">
+            <label for="opcion" class="label">Ordenar por fecha</label>
+            <select name="opcion" id="opcion" class="input">
+                <option value="Desc">Descendente</option>
+                <option value="Asc">Ascendente</option>
+            </select>
+            <button type="submit" class="boton">Ordenar</button>
+        </form>
+
     </div>
-    <button type="submit" class="btn btn-primary">Filtrar</button>
-</form>
-
-<form asp-action="AccionOrdenarPorFecha" method="post">
-    <label>Ordenar por fecha</label>
-        <select name="opcion">
-             <option value="Desc">Descendente</option>
-             <option value="Asc">Ascendente</option>
-        </select>
-    <button type="submit" class="btn btn-primary">Ordenar</button>
-</form>
 
 
-@Html.ActionLink("Registrar", "RegistrarMaquina")
-<h2>@ViewData["TituloLista"]</h2>
-<table>
+
+<h2 class="mainTitulo">@ViewData["TituloLista"]</h2>
+
+<table >
     <thead>
         <tr>
             <th>Id</th>
-            <th>Tipo maquina</th>
-            <th>Id Local</th>
+            <th>Tipo máquina</th>
+            <th>Local</th>
             <th>Fecha compra</th>
             <th>Vida útil</th>
             <th>Precio</th>
             <th>Disponibilidad</th>
+            <th>Acciones</th>
         </tr>
-
     </thead>
     <tbody>
         @foreach (Maquina maquina in Model)
@@ -50,13 +63,14 @@
                 <td>@Html.DisplayFor(modelItem => maquina.Precio)</td>
                 <td>@Html.DisplayFor(modelItem => maquina.Disponibilidad)</td>
                 <td>
-                    @Html.ActionLink("Editar", "EditarMaquina", new { idMaquina = maquina.IdMaquina }) 
-                    @Html.ActionLink("Eliminar", "EliminarMaquina", new { idMaquina = maquina.IdMaquina })
+                    @Html.ActionLink("Editar", "EditarMaquina", new { idMaquina = maquina.IdMaquina }, new { @class = "link" })
+                    @Html.ActionLink("Eliminar", "EliminarMaquina", new { idMaquina = maquina.IdMaquina }, new { @class = "link" })
 
                     <form asp-action="CalcularVidaUtil" method="post" style="display:inline;">
                         <input type="hidden" name="idMaquina" value="@maquina.IdMaquina" />
-                        <button type="submit" class="btn btn-info">Calcular Vida Útil</button>
+                        <button type="submit" class="link">Calcular Vida Útil</button>
                     </form>
+
                     <div>
                         @if (ViewData.ContainsKey("VidaUtilRestante_" + maquina.IdMaquina))
                         {
@@ -67,8 +81,9 @@
                             <span style="color:red;">Error: @ViewData["Error_" + maquina.IdMaquina]</span>
                         }
                     </div>
+                </td>
             </tr>
         }
-
     </tbody>
 </table>
+</div>

@@ -4,28 +4,31 @@
 @{
 }
 
-<h2>
-    Administrar Tipos de Máquinas
-</h2>
-@Html.ActionLink("Registrar", "RegistrarTipoMaquina")
+<h2 class="mainTitulo">Administrar Tipos de Máquinas</h2>
+
+<div class="mainContenido">
+    @Html.ActionLink("Registrar", "RegistrarTipoMaquina", null, null, new { @class = "link h3" })
+
 <table>
     <thead>
         <tr>
             <th>Id</th>
             <th>Nombre</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (TipoMaquina tipoMaquina in Model)
-        {
-            <tr>
-                <td>@Html.DisplayFor(modelItem => tipoMaquina.IdTipoMaquina)</td>
-                <td>@Html.DisplayFor(modelItem => tipoMaquina.Nombre) </td>
-                <td>
-                    @Html.ActionLink("Editar", "EditarTipoMaquina", new { idTipoMaquina = tipoMaquina.IdTipoMaquina }) |
-                    @Html.ActionLink("Eliminar", "EliminarTipoMaquina", new { idTipoMaquina = tipoMaquina.IdTipoMaquina })
-                </td>
-            </tr>
-        }
+            @foreach (TipoMaquina tipoMaquina in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => tipoMaquina.IdTipoMaquina)</td>
+                    <td>@Html.DisplayFor(modelItem => tipoMaquina.Nombre)</td>
+                    <td>
+                        @Html.ActionLink("Editar", "EditarTipoMaquina", new { idTipoMaquina = tipoMaquina.IdTipoMaquina }, new { @class = "link" })
+                        @Html.ActionLink("Eliminar", "EliminarTipoMaquina", new { idTipoMaquina = tipoMaquina.IdTipoMaquina }, new { @class = "link" })
+                    </td>
+                </tr>
+            }
     </tbody>
 </table>
+</div>

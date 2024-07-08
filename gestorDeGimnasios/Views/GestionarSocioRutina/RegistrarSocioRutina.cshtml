@@ -6,46 +6,50 @@
 
 @model gestorDeGimnasios.Models.SocioRutina
 
+@{Socio socio = (Socio)ViewData["socio"];}
 
-<form asp-action="AccionRegistrarSocioRutina" method="post">
+<h2 class="mainTitulo">Agregar Rutinas al Socio. @socio.Nombre</h2>
+<div class="mainContenido">
 
-    <div class="form-group">
-        <select name="IdSocio">
-            @foreach (Socio socio in (IEnumerable<Socio>)@ViewData["socios"])
-            {
-                <option value="@socio.IdSocio">@socio.Nombre @socio.Apellido</option>
-            }
-        </select>
-        @Html.ValidationMessageFor(model => model.IdSocio, "", new { @class = "text-danger" })
-    </div>
 
-    <div class="form-group">
-        <select name="IdRutina">
+    <form asp-action="AccionRegistrarSocioRutina" method="post" class="formulario">
+
+
+        <label for="IdSocio" class="label">Seleccione socio:</label>
+        @Html.TextBoxFor(model => model.IdSocio, new { @class = "input", type = "text", @readonly = "readonly", value = socio.IdSocio})
+        @Html.ValidationMessageFor(model => model.IdSocio, "", new { @class = "textoAdvertencia" })
+
+
+
+        <label for="IdRutina" class="label">Seleccione rutina:</label>
+        <select name="IdRutina" id="IdRutina" class="input" required="required">
+            <option value="" disabled selected>Seleccione una opción</option>
             @foreach (Rutina rutina in (IEnumerable<Rutina>)@ViewData["rutinas"])
             {
                 <option value="@rutina.IdRutina">@rutina.Descripcion</option>
             }
         </select>
-        @Html.ValidationMessageFor(model => model.IdRutina, "", new { @class = "text-danger" })
-    </div>
+        @Html.ValidationMessageFor(model => model.IdRutina, "", new { @class = "textoAdvertencia" })
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.FechaInicio, htmlAttributes: new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.FechaInicio, new { @class = "form-control", type = "date" })
-        @Html.ValidationMessageFor(model => model.FechaInicio, "", new { @class = "text-danger" })
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.FechaFin, htmlAttributes: new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.FechaFin, new { @class = "form-control", type = "date" })
-        @Html.ValidationMessageFor(model => model.FechaFin, "", new { @class = "text-danger" })
-    </div>
 
-    <div>
-        @Html.LabelFor(model => model.Calificacion, htmlAttributes: new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.Calificacion, new { @class = "form-control", type = "number" })
-        @Html.ValidationMessageFor(model => model.Calificacion, "", new { @class = "text-danger" })
-    </div>
+        @Html.LabelFor(model => model.FechaInicio, htmlAttributes: new { @class = "label" })
+        @Html.TextBoxFor(model => model.FechaInicio, new { @class = "input", type = "date", required = "required" })
+        @Html.ValidationMessageFor(model => model.FechaInicio, "", new { @class = "textoAdvertencia" })
 
-    <input type="submit" value="Guardar registro" class="btn btn-primary" />
-</form>
+
+
+        @Html.LabelFor(model => model.FechaFin, htmlAttributes: new { @class = "label" })
+        @Html.TextBoxFor(model => model.FechaFin, new { @class = "input", type = "date", required = "required" })
+        @Html.ValidationMessageFor(model => model.FechaFin, "", new { @class = "textoAdvertencia" })
+
+
+
+        @Html.LabelFor(model => model.Calificacion, htmlAttributes: new { @class = "label" })
+        @Html.TextBoxFor(model => model.Calificacion, new { @class = "input", type = "number", required = "required" })
+        @Html.ValidationMessageFor(model => model.Calificacion, "", new { @class = "textoAdvertencia" })
+
+
+        <input type="submit" value="Guardar registro" class="boton" />
+    </form>
+</div>

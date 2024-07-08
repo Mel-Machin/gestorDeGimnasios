@@ -1,0 +1,31 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h2 class="mainTitulo">
+    Cantidad de tipos de maquinas del local @ViewData["idLocaL"]
+</h2>
+<div class="mainContenido">
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Cantidad</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (TipoMaquina tipoMaquina in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => tipoMaquina.IdTipoMaquina)</td>
+                <td>@Html.DisplayFor(modelItem => tipoMaquina.Nombre)</td>
+                <td>@Html.DisplayFor(modelItem => tipoMaquina.Cantidad)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+</div>

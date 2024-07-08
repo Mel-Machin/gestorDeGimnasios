@@ -12,14 +12,15 @@ namespace gestorDeGimnasios.Controllers{
             return View(socio);
         }
 
-
-        public ActionResult RegistrarSocioRutina()
+        
+        public ActionResult RegistrarSocioRutina(int idSocio)
         {
+
             List<Rutina> rutinas = new RutinaRepositorio().ObtenerRutinasResgistradas();
             ViewData["rutinas"] = rutinas;
 
-            List<Socio> socios = new SocioRepositorio().ObtenerSociosRegistrados();
-            ViewData["socios"] = socios;
+            Socio socio = new SocioRepositorio().ObtenerSocio(idSocio);
+            ViewData["socio"] = socio;
 
             return View();
         }
@@ -32,7 +33,8 @@ namespace gestorDeGimnasios.Controllers{
                 bool resultado = new SocioRutinaRepositorio().AgregarRutinaASocio(socioRutina, socioRutina.IdSocio, socioRutina.IdRutina);
                 if (resultado)
                 {
-                    return RedirectToAction("GestionandoSocioRutina");
+                    return RedirectToAction("GestionandoSocioRutina", new { idSocio = socioRutina.IdSocio });
+
                 }
                 else
                 {
@@ -41,5 +43,68 @@ namespace gestorDeGimnasios.Controllers{
             }
             return View(socioRutina);
         }
+   
+
+        public ActionResult EditarSocioRutina(int idSocio, int idRutina)
+        {
+
+            if (idSocio != 0 && idRutina != 0)
+            {
+                List<Rutina> rutinas = new RutinaRepositorio().ObtenerRutinasResgistradas();
+                ViewData["rutinas"] = rutinas;
+
+                SocioRutina sociorutina = new SocioRutinaRepositorio().ObtenerRutinaSocio(idSocio, idRutina);
+                return View(sociorutina);
+            }
+            else
+            {
+                return NotFound();
+
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AccionEditarSocioRutina(SocioRutina socioRutina) {
+            {
+                if (ModelState.IsValid)
+                {
+                    bool resultado = new SocioRutinaRepositorio().ModificarRutinaASocio(socioRutina);
+                    if (resultado)
+                    {
+                        return RedirectToAction("GestionandoSocioRutina", new { idSocio = socioRutina.IdSocio });
+                    }
+                }
+                return View(socioRutina);
+            }
+        }
+   
+
+        public ActionResult EliminarSocioRutina(int idRutina, int idSocio)
+        {
+            if (idSocio != 0)
+            {
+                SocioRutina socioRutina = new SocioRutinaRepositorio().ObtenerRutinaSocio(idSocio, idRutina);
+                return View(socioRutina);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AccionEliminarSocioRutina(SocioRutina socioRutina)
+        {
+            if (ModelState.IsValid)
+            {
+                bool resultado = new SocioRutinaRepositorio().EliminarRutinaASocio(socioRutina);
+                if (resultado)
+                {
+                    return RedirectToAction("GestionandoSocioRutina", new { idSocio = socioRutina.IdSocio });
+                }
+            }
+            return View(socioRutina);
+        }
+
     }
 }

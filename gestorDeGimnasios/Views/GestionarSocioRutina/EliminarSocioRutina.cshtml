@@ -3,3 +3,33 @@
 *@
 @{
 }
+
+
+@model gestorDeGimnasios.Models.SocioRutina
+
+<h2 class="mainTitulo">Eliminar Relación Socio-Rutina</h2>
+<div class="mainContenido">
+    <form asp-action="AccionEliminarSocioRutina" method="post" class="formulario">
+
+
+        @Html.LabelFor(model => model.IdSocio, htmlAttributes: new { @class = "label" })
+        @Html.TextBoxFor(model => model.IdSocio, new { @class = "input", @readonly = "readonly" })
+        <div></div>
+
+        @Html.LabelFor(model => model.IdRutina, htmlAttributes: new { @class = "label" })
+        @Html.TextBoxFor(model => model.IdRutina, new { @class = "input", @readonly = "readonly" })
+        <div></div>
+
+        @Html.LabelFor(model => model.FechaInicio, htmlAttributes: new { @class = "label" })
+        <input asp-for="FechaInicio" class="input" type="date" readonly />
+
+        @Html.LabelFor(model => model.FechaFin, htmlAttributes: new { @class = "label" })
+        <input asp-for="FechaFin" class="input" type="date" readonly />
+
+        @Html.LabelFor(model => model.Calificacion, htmlAttributes: new { @class = "label" })
+        @Html.TextBoxFor(model => model.Calificacion, new { @class = "input", type = "number" })
+        <div></div>
+
+        <input type="submit" value="Eliminar" class="boton" />
+    </form>
+</div>

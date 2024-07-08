@@ -6,21 +6,24 @@
 @model gestorDeGimnasios.Models.Socio
 
 
-<h1> Lista rutinas del socio @Model.Nombre</h1>
-@Html.ActionLink("Registrar", "RegistrarSocioRutina")
+<h2 class="mainTitulo"> Lista rutinas @Model.Nombre @Model.Apellido.</h2>
+<div class="mainContenido">
+
+
+    @Html.ActionLink("Agregar rutina", "RegistrarSocioRutina", new{idSocio = Model.IdSocio}, new { @class = "link h3" })
 
 <table>
     <thead>
         <tr>
-            <th>id rutina</th>
-            <th>Descripción rutina</th>
-            <th>Tipo rutina </th>
-            <th>Calificación promedio rutina </th>
-            <th>Fecha inicio socio rutina </th>
-            <th>Fecha fin socio rutina </th>
-            <th>Calificacion  socio rutina </th>
+            <th>Id</th>
+            <th>Descripción</th>
+            <th>Tipo</th>
+            <th>Calificación promedio</th>
+            <th>Fecha inicio</th>
+            <th>Fecha fin</th>
+            <th>Calificación</th>
+            <th>Acciones</th>
         </tr>
-
     </thead>
     <tbody>
         @foreach (SocioRutina socioRutina in Model.ListaSocioRutinas)
@@ -34,11 +37,12 @@
                 <td>@Html.DisplayFor(modelItem => socioRutina.FechaFin)</td>
                 <td>@Html.DisplayFor(modelItem => socioRutina.Calificacion)</td>
                 <td>
-                    @Html.ActionLink("Editar", "EditarSocioRutina", new { idRutina = socioRutina.IdRutina, idSocio=socioRutina.IdSocio})
-                    @Html.ActionLink("Eliminar", "EliminarSocioRutina", new { idRutina = socioRutina.IdRutina,idSocio = socioRutina.IdSocio })
+                    @Html.ActionLink("Editar", "EditarSocioRutina", new { idRutina = socioRutina.IdRutina, idSocio = socioRutina.IdSocio }, new { @class = "link" })
+                    @Html.ActionLink("Eliminar", "EliminarSocioRutina", new { idRutina = socioRutina.IdRutina, idSocio = socioRutina.IdSocio }, new { @class = "link" })
                 </td>
             </tr>
         }
     </tbody>
-
 </table>
+
+</div>

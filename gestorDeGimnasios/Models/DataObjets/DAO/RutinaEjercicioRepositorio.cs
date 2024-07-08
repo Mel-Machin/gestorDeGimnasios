@@ -1,8 +1,10 @@
-﻿namespace gestorDeGimnasios.Models.DataObjets.DAO
+﻿using Microsoft.Data.SqlClient;
+using gestorDeGimnasios.Data;
+namespace gestorDeGimnasios.Models.DataObjets.DAO
 {
     public class RutinaEjercicioRepositorio
-    {/*
-        public bool AgregarEjercicioARutina(int idRutina, int idEjercicio)
+    {
+        public bool AgregarEjercicioARutina(int? idRutina, int? idEjercicio)
         {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
@@ -15,31 +17,35 @@
             return creado > 0;
         }
 
-        public bool EliminarEjercicioDeRutina(int idEjercicio) {
+        public bool EliminarEjercicioDeRutina(int? idRutina, int? idEjercicio) {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
-            string consulta = "DELETE from rutinas_ejercicios WHERE id_ejercicio = @idEjercicio";
+            string consulta = "DELETE from rutinas_ejercicios WHERE id_ejercicio = @idEjercicio AND id_rutina=@idRutina";
             SqlCommand sqlCommand = new SqlCommand(consulta, conexion);
             sqlCommand.Parameters.AddWithValue("@idEjercicio", idEjercicio);
+            sqlCommand.Parameters.AddWithValue("@idRutina", idRutina);
             int afectados = sqlCommand.ExecuteNonQuery();
             conexion.Close();
             return afectados > 0;
         }
 
-        public bool CambiarEjercicioDeRutina(RutinaEjercicio rutinaEjercicio, int idEjercicioACambiar) 
+        public bool ExisteEjercicioRutina(int? idRutina, int? idEjercicio)
         {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
-            string consulta = "UPDATE rutinas_ejercicios SET id_Ejercicio = @IdEjercicio WHERE id_Ejercicio = @idEjercicioACambiar";
+            string consulta = "SELECT * from rutinas_ejercicios WHERE id_ejercicio = @idEjercicio AND id_rutina=@idRutina";
             SqlCommand sqlCommand = new SqlCommand(consulta, conexion);
-            sqlCommand.Parameters.AddWithValue("@idEjercicioACambiar", idEjercicioACambiar);
-            sqlCommand.Parameters.AddWithValue("@IdEjercicio", rutinaEjercicio.IdEjercicio);
+            sqlCommand.Parameters.AddWithValue("@idEjercicio", idEjercicio);
+            sqlCommand.Parameters.AddWithValue("@idRutina", idRutina);
+            SqlDataReader lector = sqlCommand.ExecuteReader();
+            bool estado = lector.HasRows;
             conexion.Close();
-            int actualizado = sqlCommand.ExecuteNonQuery();
+            return estado;
+        }
+    
 
-            return actualizado > 0;
 
-        }*/
+
     }
 }
 

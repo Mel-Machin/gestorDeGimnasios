@@ -5,23 +5,23 @@
 }
 @model gestorDeGimnasios.Models.Responsable
 
+<h2 class="mainTitulo">Confirmar Eliminación del Responsable</h2>
 
-<form asp-action="AccionEliminarResponsable" method="post">
+<div class="mainContenido">
+    <form asp-action="AccionEliminarResponsable" method="post" class="formulario">
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.IdResponsable, htmlAttributes: new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.IdResponsable, new { @class = "form-control", @readonly = "readonly" })
-    </div>
+        @Html.LabelFor(model => model.IdResponsable, htmlAttributes: new { @class = "label" })
+        @Html.TextBoxFor(model => model.IdResponsable, new { @class = "input", @readonly = "readonly" })
+        <div></div>
 
-    <div>
-        @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label" })
-        @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-    </div>
+        @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "label" })
+        @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "input", @readonly = "readonly" } })
+        <div></div>
 
-    <div>
-        @Html.LabelFor(model => model.Telefono, htmlAttributes: new { @class = "control-label" })
-        @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-    </div>
+        @Html.LabelFor(model => model.Telefono, htmlAttributes: new { @class = "label" })
+        @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @class = "input", @readonly = "readonly" } })
+        <div></div>
 
-    <input type="submit" value="Eliminar" class="btn btn-primary" />
-</form>
+        <input type="submit" value="Eliminar" class="boton" />
+    </form>
+</div>

@@ -4,11 +4,11 @@
 @{
 }
 
-<h2>
-    Administrar Responsables
-</h2>
+<h2 class ="mainTitulo">Administrar Responsables</h2>
+<div class="mainContenido">
 
-@Html.ActionLink("Registrar", "RegistrarResponsable")
+
+    @Html.ActionLink("Registrar", "RegistrarResponsable", null,null, new { @class = "link h3" })
 
 <table>
     <thead>
@@ -16,8 +16,8 @@
             <th>Id</th>
             <th>Nombre</th>
             <th>Teléfono</th>
+            <th>Acciones</th>
         </tr>
-
     </thead>
     <tbody>
         @foreach (Responsable responsable in Model)
@@ -26,12 +26,13 @@
                 <td>@Html.DisplayFor(modelItem => responsable.IdResponsable)</td>
                 <td>@Html.DisplayFor(modelItem => responsable.Nombre)</td>
                 <td>@Html.DisplayFor(modelItem => responsable.Telefono)</td>
-             
                 <td>
-                    @Html.ActionLink("Editar", "EditarResponsable", new { idResponsable = responsable.IdResponsable })
-                    @Html.ActionLink("Eliminar", "EliminarResponsable", new { idResponsable = responsable.IdResponsable })
+                    @Html.ActionLink("Editar", "EditarResponsable", new { idResponsable = responsable.IdResponsable }, new { @class = "link" })
+                    @Html.ActionLink("Eliminar", "EliminarResponsable", new { idResponsable = responsable.IdResponsable }, new { @class = "link" })
+                  
+                </td>
             </tr>
         }
-
     </tbody>
 </table>
+</div>

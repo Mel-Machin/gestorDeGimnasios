@@ -4,22 +4,23 @@
 @{
 }
 
-<h2>
-    Administrar Rutinas
-</h2>
-@Html.ActionLink("Registrar", "RegistrarRutina")
+<h2 class="mainTitulo">Administrar Rutinas</h2>
 
-<table>
+
+<div class="mainContenido">
+    @Html.ActionLink("Registrar", "RegistrarRutina", null,null, new { @class = "link h3" })
+
+<table >
     <thead>
         <tr>
             <th>Id</th>
             <th>Descripción</th>
             <th>Tipo</th>
             <th>Calificación promedio</th>
+            <th>Acciones</th>
         </tr>
-
     </thead>
-     <tbody>
+    <tbody>
         @foreach (Rutina rutina in Model)
         {
             <tr>
@@ -28,11 +29,12 @@
                 <td>@Html.DisplayFor(modelItem => rutina.TipoRutina)</td>
                 <td>@Html.DisplayFor(modelItem => rutina.CalificacionRutinaPromedio)</td>
                 <td>
-                    @Html.ActionLink("Editar", "EditarRutina", new { idRutina = rutina.IdRutina })
-                    @Html.ActionLink("Eliminar", "EliminarRutina", new { idRutina = rutina.IdRutina })
+                    @Html.ActionLink("Editar", "EditarRutina", new { idRutina = rutina.IdRutina }, new { @class = "link" })
+                    @Html.ActionLink("Eliminar", "EliminarRutina", new { idRutina = rutina.IdRutina }, new { @class = "link" })
+                    @Html.ActionLink("Ver ejercicios", "EjerciciosRutina", "GestionarEjercicio", new { idRutina = rutina.IdRutina }, new { @class = "link" })
                 </td>
             </tr>
         }
     </tbody>
-
 </table>
+</div>

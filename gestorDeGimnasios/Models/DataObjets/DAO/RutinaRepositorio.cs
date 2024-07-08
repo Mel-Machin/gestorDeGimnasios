@@ -21,6 +21,7 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
                 rutina.Descripcion = lector.GetString(1);
                 rutina.TipoRutina = lector.GetString(2);
                 rutina.CalificacionRutinaPromedio = lector.IsDBNull(3) ? null : lector.GetDecimal(3);
+                rutina.ListaEjercicios = new EjercicioRepositorio().ObtenerEjerciciosPorRutina(rutina.IdRutina);
                 rutinas.Add(rutina);
 
             }
@@ -28,9 +29,7 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             return rutinas;
         }
 
-
-
-        public Rutina ObtenerRutina(int idRutina)
+        public Rutina ObtenerRutina(int? idRutina)
         {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
@@ -44,6 +43,7 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             rutina.Descripcion = lector.GetString(1);
             rutina.TipoRutina = lector.GetString(2);
             rutina.CalificacionRutinaPromedio = lector.IsDBNull(3) ? null : lector.GetDecimal(3);
+            rutina.ListaEjercicios = new EjercicioRepositorio().ObtenerEjerciciosPorRutina(rutina.IdRutina);
             conexion.Close();
             return rutina;
         }
@@ -62,7 +62,7 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             return creado > 0;
         }
 
-        public bool EliminarRutina(int idRutina)
+        public bool EliminarRutina(int? idRutina)
         {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
@@ -75,7 +75,7 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             return afectados > 0;
         }
 
-        public bool ModificarRutina(Rutina rutina, int idRutina)
+        public bool ModificarRutina(Rutina rutina, int? idRutina)
         {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
@@ -90,7 +90,7 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             return actualizado > 0;
         }
 
-        public List<Rutina> ObtenerRutinaSocio(int idSocio)
+        public List<Rutina> ObtenerRutinaSocio(int? idSocio)
         {
             return null;
         }

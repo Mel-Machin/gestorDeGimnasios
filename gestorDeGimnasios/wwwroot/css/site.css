@@ -1,22 +1,207 @@
-html {
-  font-size: 14px;
+body{
+    margin:0;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+:root {
+    --primario: rgb(0, 123, 255);
+    --secundario: rgb(255, 87, 34);
+    --fondo: rgb(255, 255, 255);
+    --textoPrimario: rgb(51, 51, 51);
+    --textoSecundario: rgb(117, 117, 117);
+    --link: rgb(0, 123, 255)
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+*{
+    box-sizing:border-box;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+
+main {
+    display: grid;
+    height: calc(100vh - 100px);
+    flex-direction: column;
+    background-color: var(--fondo);
+    grid-template-rows:.07fr 1fr;
+    gap:40px;
+   
 }
 
-body {
-  margin-bottom: 60px;
+.mainContenido{
+    height:100%;
+    display:flex;
+    align-items:center;
+    flex-direction:column;
+    overflow:auto;
+   
+   
 }
+
+.mainTitulo{
+    height:.3fr;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+
+
+footer {
+    display: flex;
+    height: 40px;
+    justify-content:end;
+    align-items:center;
+    background-color: var(--secundario);
+}
+
+footer p {
+        color: var(--fondo);
+    }
+
+header {
+    display: grid;
+    height: 60px;
+    align-items: center;
+    grid-template-columns:1fr .25fr;
+    background-color: var(--secundario);
+   
+}
+
+header nav{
+    display:flex;
+    justify-content:space-evenly;
+    
+   
+}
+
+    header .usuarioSesionContenedor {
+        display: flex;
+        gap: 20px;
+        align-items:center;
+        justify-content:center;
+    }
+
+    h1, h2, h3,h4 {
+        margin: 0;
+        color: var(--textoPrimario);
+    }
+
+p{
+    margin:0;
+    color:var(--textoSecundario);
+}
+
+.boton{
+    border:1px solid rgb(128, 128, 128);
+    padding:5px;
+    background-color:var(--secundario);
+    border:1px solid var(--fondo);
+    color:var(--fondo);
+    border-radius:7px;
+}
+
+nav .link {
+    color: var(--fondo);
+}
+
+.link {
+    list-style: none;
+    text-decoration:none;
+    color:var(--primario);
+    font-weight:600;
+    padding:10px;
+    border-radius:7px;
+    transition:all .3s;
+    border:none;
+    background-color: rgba(240, 248, 255,0);
+}
+
+    .link:hover {
+        transform: scale(1.2);
+      
+    }
+
+
+.formulario {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr; /* Columnas dinámicas */
+    gap: 20px; /* Espacio entre elementos */
+    padding:40px;
+    border:1px solid var(--secundario);
+    border-radius:10px;
+
+}
+.formulario label{
+    color:var(--textoSecundario);
+}
+
+    /* Estilo para el primer y segundo elemento de cada grupo de tres */
+    .formulario > :nth-child(3n-2),
+    .formulario > :nth-child(3n-1) {
+        grid-column: span 1; /* Ocupan dos columnas */
+    }
+
+    /* Estilo para el tercer elemento de cada grupo de tres */
+    .formulario > :nth-child(3n) {
+        grid-column: span 2; /* Ocupa una columna */
+    }
+
+    .formulario > input[type="submit"] {
+        grid-column: span 2; /* Ocupa una columna */
+        border:1px solid var(--secundario);
+    }
+
+    .formulario input{
+        border:none;
+        border-bottom:1px solid var(--secundario);
+    }
+
+    table td{
+        border:1px solid var(--textoSecundario);
+        padding:10px;
+    }
+
+table th {
+    border: 2px solid var(--textoPrimario);
+    padding: 10px;
+    background-color:var(--primario);
+    color:var(--fondo);
+}
+
+table tbody > :nth-child(2n) {
+    background-color: rgb(240, 248, 255);
+}
+
+table tbody > :nth-child(2n -1) {
+    background-color: rgb(245, 245, 245);
+}
+
+table {
+    border-collapse: collapse;
+    width:70%
+
+}
+
+.filtro{
+    display:grid;
+    gap:10px;
+    padding:20px;
+    border:1px solid var(--textoSecundario);
+    margin:10px;
+    border-radius:7px;
+}
+
+/* Estilo para el primer y segundo elemento de cada grupo de tres */
+    .filtro > :nth-child(3n-2),
+    .filtro > :nth-child(3n-1) {
+        grid-column: span 1; /* Ocupan dos columnas */
+    }
+
+/* Estilo para el tercer elemento de cada grupo de tres */
+    .filtro > :nth-child(3n) {
+        grid-column: span 2; /* Ocupa una columna */
+    }
+
+    .grupoFiltro{
+        display:flex;
+        gap:20px;
+    }

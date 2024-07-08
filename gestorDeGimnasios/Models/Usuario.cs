@@ -2,19 +2,20 @@
 {
     public class Usuario
     {
-        private int idUsuario;
-        private string nombreUsuario;
-        private string password;
-        private string email;
-        private string nombre;
-        private string apellido;
+        private string ?nombreUsuario;
+        private string ?contrasenia;
+        private string ?tipoUsuario;
 
-        public int IdUsuario { get { return this.idUsuario; } set { this.idUsuario = value; } }
-        public string NombreUsuario { get { return this.nombreUsuario; } set { this.nombreUsuario = value; } }
-        public string Password { get { return this.password; } set { this.password = value; } }
-        public string Email { get { return this.email; } set { this.email = value; } }
-        public string Nombre { get { return this.nombre; } set { this.nombre = value; } }
-        public string Apellido { get { return this.apellido; } set { this.apellido = value; } }
+        public string ?NombreUsuario {  get { return nombreUsuario; } set { nombreUsuario = value; } }
+        public string ?Contrasenia { get { return contrasenia; } set { contrasenia = value; } }
+
+        public string ?TipoUsuario { get {return tipoUsuario; } set { tipoUsuario = value; }  }
+
+        public bool IsTipoUsuario(string tipoUsuario)
+        {
+            return tipoUsuario == this.TipoUsuario;
+        }
+
 
     }
 }

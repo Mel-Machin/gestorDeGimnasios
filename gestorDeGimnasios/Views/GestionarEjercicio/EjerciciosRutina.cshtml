@@ -3,11 +3,11 @@
 *@
 @{
 }
+@model Rutina;
 
-
-<h2 class="mainTitulo">Administrar Ejercicios</h2>
+<h2 class="mainTitulo">Ejercicio de la rutina  @Model.IdRutina</h2>
 <div class="mainContenido">
-    @Html.ActionLink("Registrar", "RegistrarEjercicio", null, null, new { @class = "link h3" })
+@Html.ActionLink("Agregar Ejercicio", "RegistrarRutinaEjercicio", "GestionarRutinaEjercicio", new { idRutina = Model.IdRutina }, new { @class = "link" })
 
 <table>
     <thead>
@@ -19,15 +19,14 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (Ejercicio ejercicio in Model)
+        @foreach (Ejercicio ejercicio in Model.ListaEjercicios)
         {
             <tr>
                 <td>@Html.DisplayFor(modelItem => ejercicio.IdEjercicio)</td>
                 <td>@Html.DisplayFor(modelItem => ejercicio.Descripcion)</td>
                 <td>@Html.DisplayFor(modelItem => ejercicio.TipoMaquina.Nombre)</td>
                 <td>
-                    @Html.ActionLink("Editar", "EditarEjercicio", new { idEjercicio = ejercicio.IdEjercicio }, new { @class = "link" })
-                    @Html.ActionLink("Eliminar", "EliminarEjercicio", new { idEjercicio = ejercicio.IdEjercicio }, new { @class = "link" })
+                    @Html.ActionLink("Eliminar", "EliminarRutinaEjercicio", "GestionarRutinaEjercicio", new { idEjercicio = ejercicio.IdEjercicio, idRutina = Model.IdRutina }, new { @class = "link" })
                 </td>
             </tr>
         }

@@ -5,29 +5,25 @@
 }
 @model gestorDeGimnasios.Models.Ejercicio
 
+<h2 class="mainTitulo">Modificar Ejercicio</h2>
 
-<form asp-action="AccionEditarEjercicio" method="post">
+<div class="mainContenido">
+    <form asp-action="AccionEditarEjercicio" method="post" class="formulario">
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.IdEjercicio, htmlAttributes: new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.IdEjercicio, new { @class = "form-control", type = "number", @readonly = "readonly" })
-    </div>
+        @Html.LabelFor(model => model.IdEjercicio, htmlAttributes: new { @class = "label" })
+        @Html.TextBoxFor(model => model.IdEjercicio, new { @class = "input", type = "number", @readonly = "readonly" })
+        <div></div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.Descripcion, new { @class = "form-control", type = "text" })
-        @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
-    </div>
+        @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "label" })
+        @Html.TextBoxFor(model => model.Descripcion, new { @class = "input", type = "text", required = "required" })
+        @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "textoAdvertencia" })
 
-    <div class="form-group">
-        <select name="IdTipoMaquina">
-            @foreach (TipoMaquina tipoMaquina in (IEnumerable<TipoMaquina>)@ViewData["tiposMaquinas"])
-            {
-                <option value="@tipoMaquina.IdTipoMaquina">@tipoMaquina.Nombre</option>
-            }
+        @Html.LabelFor(model => model.IdTipoMaquina, htmlAttributes: new { @class = "label" })
+        <select asp-for="IdTipoMaquina" asp-items="@(new SelectList(ViewData["tiposMaquinas"] as IEnumerable<TipoMaquina>, "IdTipoMaquina", "Nombre"))" class="input" required="required">
+            <option value="" disabled selected>Seleccione una opción</option>
         </select>
-        @Html.ValidationMessageFor(model => model.IdTipoMaquina, "", new { @class = "text-danger" })
-    </div>
+        @Html.ValidationMessageFor(model => model.IdTipoMaquina, "", new { @class = "textoAdvertencia" })
 
-    <input type="submit" value="Guardar cambios" class="btn btn-primary" />
-</form>
+        <input type="submit" value="Guardar cambios" class="boton" />
+    </form>
+</div>

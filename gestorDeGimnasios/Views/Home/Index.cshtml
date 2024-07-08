@@ -1,11 +1,26 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Inicio - Gym 24";
 }
+@model gestorDeGimnasios.Controllers.HomeController;
+    @inject IHttpContextAccessor context;
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h2 class="mainTitulo">Bienvenido a Gym 24</h2>
+<div class="mainContenido">
+    @if (context.HttpContext.Session.GetString("tipoUsuario") == "" || context.HttpContext.Session.GetString("tipoUsuario") == null)
+    {
+        @Html.ActionLink("Iniciar Sesión", "IniciarSesion", null,null, new { @class = "link" })
+
+    }
 </div>
+
+           
+        
+
+                
+
+
+
+
 @{
    
 }

@@ -5,25 +5,22 @@
 }
 @model gestorDeGimnasios.Models.Ejercicio
 
+<h2 class="mainTitulo">Registrando Ejercicio</h2>
+<div class="mainContenido">
+    <form asp-action="AccionRegistrarEjercicio" method="post" class="formulario">
 
-<form asp-action="AccionRegistrarEjercicio" method="post">
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.Descripcion, new { @class = "form-control", type = "text" })
-        @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
-    </div>
+        @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "label" })
+        @Html.TextBoxFor(model => model.Descripcion, new { @class = "input", type = "text", required = "required", placeholder="Ingrese la descripción del ejercicio" })
+        @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "textoAdvertencia" })
 
-    <div class="form-group">
-        <select name="IdTipoMaquina">
-            @foreach (TipoMaquina tipoMaquina in (IEnumerable<TipoMaquina>)@ViewData["tiposMaquinas"])
-            {
-                <option value="@tipoMaquina.IdTipoMaquina">@tipoMaquina.Nombre</option>
-            }
+        @Html.Label("IdTipoMaquina", "Tipo de Máquina", htmlAttributes: new { @class = "label" })
+        <select asp-for="IdTipoMaquina" asp-items="@(new SelectList(ViewData["tiposMaquinas"] as IEnumerable<TipoMaquina>, "IdTipoMaquina", "Nombre"))" class="input" required="required">
+            <option value="" disabled selected>Seleccione una opción</option>
         </select>
-        @Html.ValidationMessageFor(model => model.IdTipoMaquina, "", new { @class = "text-danger" })
-    </div>
+        @Html.ValidationMessageFor(model => model.IdTipoMaquina, "", new { @class = "textoAdvertencia" })
 
-    <input type="submit" value="Guardar registro" class="btn btn-primary" />
+        <input type="submit" value="Guardar registro" class="boton" />
 
-</form>
+    </form>
+</div>

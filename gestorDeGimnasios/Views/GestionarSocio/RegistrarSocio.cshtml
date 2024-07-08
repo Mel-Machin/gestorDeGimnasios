@@ -5,53 +5,56 @@
 }
 @model gestorDeGimnasios.Models.Socio
 
+<h2 class="mainTitulo">Registrando Socio.</h2>
+<div class="mainContenido">
+    <form asp-action="AccionRegistrarSocio" method="post" class="formulario">
 
-<form asp-action="AccionRegistrarSocio" method="post">
+        @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "label" })
+        @Html.TextBoxFor(model => model.Nombre, new { @class = "input", type = "text", required = "required" })
+        @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "textoAdvertencia" })
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", type = "text" })
-        @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Apellido, htmlAttributes: new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.Apellido, new { @class = "form-control", type = "text" })
-        @Html.ValidationMessageFor(model => model.Apellido, "", new { @class = "text-danger" })
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Tipo, htmlAttributes: new { @class = "control-label" })
-        <select asp-for="Tipo" class="form-control">
-            <option value="" disabled selected>Seleccione tipo de socio</option>
+        @Html.LabelFor(model => model.Apellido, htmlAttributes: new { @class = "label" })
+        @Html.TextBoxFor(model => model.Apellido, new { @class = "input", type = "text", required = "required" })
+        @Html.ValidationMessageFor(model => model.Apellido, "", new { @class = "textoAdvertencia" })
+
+
+
+        @Html.LabelFor(model => model.Tipo, htmlAttributes: new { @class = "label" })
+        <select asp-for="Tipo" class="input" required="required">
+            <option value="" disabled selected>Seleccione una opción</option>
             <option value="premium">Premium</option>
             <option value="estandar">Estándar</option>
             <option value="básico">Básico</option>
         </select>
-        @Html.ValidationMessageFor(model => model.Tipo, "", new { @class = "text-danger" })
-    </div>
+        @Html.ValidationMessageFor(model => model.Tipo, "", new { @class = "textoAdvertencia" })
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Telefono, htmlAttributes: new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.Telefono, new { @class = "form-control", type = "text" })
-        @Html.ValidationMessageFor(model => model.Telefono, "", new { @class = "text-danger" })
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.CorreoElectronico, htmlAttributes: new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.CorreoElectronico, new { @class = "form-control", type = "text" })
-        @Html.ValidationMessageFor(model => model.CorreoElectronico, "", new { @class = "text-danger" })
-    </div>
 
-    <div class="form-group">
-        <select name="IdLocal">
-            @foreach (Local local in (IEnumerable<Local>)@ViewData["locales"])
+        @Html.LabelFor(model => model.Telefono, htmlAttributes: new { @class = "label" })
+        @Html.TextBoxFor(model => model.Telefono, new { @class = "input", type = "text", required = "required" })
+        @Html.ValidationMessageFor(model => model.Telefono, "", new { @class = "textoAdvertencia" })
+
+
+
+        @Html.LabelFor(model => model.CorreoElectronico, htmlAttributes: new { @class = "label" })
+        @Html.TextBoxFor(model => model.CorreoElectronico, new { @class = "input", type = "text", required = "required" })
+        @Html.ValidationMessageFor(model => model.CorreoElectronico, "", new { @class = "textoAdvertencia" })
+
+
+
+        <label for="IdLocal" class="label">Local</label>
+        <select name="IdLocal" id="IdLocal" class="input" required="required">
+            @foreach (Local local in (IEnumerable<Local>)ViewData["locales"])
             {
                 <option value="@local.IdLocal">@local.Nombre</option>
             }
         </select>
-        @Html.ValidationMessageFor(model => model.IdLocal, "", new { @class = "text-danger" })
-    </div>
+        @Html.ValidationMessageFor(model => model.IdLocal, "", new { @class = "textoAdvertencia" })
 
-    <input type="submit" value="Guardar registro" class="btn btn-primary" />
-</form>
+
+        <input type="submit" value="Guardar registro" class="boton" />
+    </form>
+</div>
+

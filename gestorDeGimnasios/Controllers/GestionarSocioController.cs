@@ -16,6 +16,7 @@ namespace gestorDeGimnasios.Controllers
             return View(socios);
         }
 
+
         //Vista de editar socio
         public ActionResult EditarSocio(int idSocio)
         {
@@ -47,6 +48,7 @@ namespace gestorDeGimnasios.Controllers
             return View(socio);
         }
 
+
         // Vista para confirmar eliminación de socio
         public ActionResult EliminarSocio(int idSocio)
         {
@@ -60,7 +62,6 @@ namespace gestorDeGimnasios.Controllers
                 return NotFound();
             }
         }
-
         // Acción para eliminar socio
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -76,6 +77,7 @@ namespace gestorDeGimnasios.Controllers
             }
             return View(socio);
         }
+
 
         //Vista registrar socio
         public ActionResult RegistrarSocio()
@@ -102,6 +104,7 @@ namespace gestorDeGimnasios.Controllers
             }
             return View(socio);
         }
+
 
         //Acción filtrar socios según su tipo
         [HttpPost]

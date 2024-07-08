@@ -4,53 +4,54 @@
 @{
 }
 
-<h2>Administrar Socios</h2>
-
-<form asp-action="AccionFiltrarSocioPorTipo" method="post">
-    <label>Filtrar socios según tipo</label>
-    <select name="tipoSocio">
-            <option value="básico"> Básico</option>
-            <option value="estandar"> Estándar</option>
-            <option value="premium"> Premium</option>
+<h2 class="mainTitulo">Administrar Socios</h2>
+<div class="mainContenido">
+<form asp-action="AccionFiltrarSocioPorTipo" method="post" class="filtro">
+    <label class="label">Filtrar socios según tipo</label>
+    <select name="tipoSocio" class="input">
+            <option value="" disabled selected>Seleccione una opción</option>
+        <option value="básico"> Básico</option>
+        <option value="estandar"> Estándar</option>
+        <option value="premium"> Premium</option>
     </select>
-    <button type="submit" class="btn btn-primary">Buscar</button>
+    <button type="submit" class="boton">Buscar</button>
 </form>
 
-@Html.ActionLink("Registrar", "RegistrarSocio")
+    @Html.ActionLink("Registrar", "RegistrarSocio", null,null, new { @class = "link h3" })
 
-<table>
-    <thead>
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Tipo</th>
+                    <th>Teléfono</th>
+                    <th>Mail</th>
+                    <th>Nombre del local</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Socio socio in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => socio.IdSocio)</td>
+                        <td>@Html.DisplayFor(modelItem => socio.Nombre)</td>
+                        <td>@Html.DisplayFor(modelItem => socio.Apellido)</td>
+                        <td>@Html.DisplayFor(modelItem => socio.Tipo)</td>
+                        <td>@Html.DisplayFor(modelItem => socio.Telefono)</td>
+                        <td>@Html.DisplayFor(modelItem => socio.CorreoElectronico)</td>
+                        <td>@Html.DisplayFor(modelItem => socio.Local.Nombre)</td>
+                        <td>
+                            @Html.ActionLink("Editar", "EditarSocio", new { idSocio = socio.IdSocio }, new { @class = "link" })
+                            @Html.ActionLink("Eliminar", "EliminarSocio", new { idSocio = socio.IdSocio }, new { @class = "link" })
+                            @Html.ActionLink("Ver Rutinas", "GestionandoSocioRutina", "GestionarSocioRutina", new { idSocio = socio.IdSocio }, new { @class = "link" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+ 
 
-        <tr>
-            <th>Id</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Tipo</th>
-            <th>Teléfono</th>
-            <th>Mail</th>
-            <th>Nombre del local</th>
-        </tr>
-
-    </thead>
-    <tbody>
-        @foreach (Socio socio in Model)
-        {
-            <tr>
-                <td>@Html.DisplayFor(modelItem => socio.IdSocio)</td>
-                <td>@Html.DisplayFor(modelItem => socio.Nombre)</td>
-                <td>@Html.DisplayFor(modelItem => socio.Apellido)</td>
-                <td>@Html.DisplayFor(modelItem => socio.Tipo)</td>
-                <td>@Html.DisplayFor(modelItem => socio.Telefono)</td>
-                <td>@Html.DisplayFor(modelItem => socio.CorreoElectronico)</td>
-                <td>@Html.DisplayFor(modelItem => socio.Local.Nombre)</td>
-
-                <td>
-                    @Html.ActionLink("Editar", "EditarSocio", new { idSocio = socio.IdSocio })
-                    @Html.ActionLink("Eliminar", "EliminarSocio", new { idSocio = socio.IdSocio })
-                    @Html.ActionLink("ver Rutinas", "GestionandoSocioRutina", "GestionarSocioRutina", new { idSocio = socio.IdSocio })
-
-            </tr>
-        }
-
-    </tbody>
-</table>
+</div>

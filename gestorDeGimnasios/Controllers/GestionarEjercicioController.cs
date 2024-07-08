@@ -30,7 +30,20 @@ namespace gestorDeGimnasios.Controllers
                 return NotFound();
             }
         }
-        [HttpPost]
+
+        public ActionResult EjerciciosRutina(int idRutina)
+        {
+            if (idRutina != 0)
+            {
+                Rutina rutina = new RutinaRepositorio().ObtenerRutina(idRutina);
+                return View(rutina);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+       [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AccionEditarEjercicio(Ejercicio ejercicio)
         {

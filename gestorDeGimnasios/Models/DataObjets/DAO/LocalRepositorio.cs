@@ -70,7 +70,7 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             return creado > 0;
         }
 
-        public bool EliminarLocal(int idLocal)
+        public bool EliminarLocal(int? idLocal)
         {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
@@ -83,11 +83,11 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             return afectados > 0;
         }
 
-        public bool ModificarLocal(Local local, int idLocal)
+        public bool ModificarLocal(Local local, int? idLocal)
         {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
-            string consulta = "UPDATE locales SET Nombre_local = @Nombre, Ciudad_local = @Ciudad, Dirección_local= @Direccion, Teléfono_local= @Telefono, Responsable_local = @IdResponsable  WHERE id_local = @idLocal";
+            string consulta = "UPDATE locales SET Nombre_local = @Nombre, Ciudad_local = @Ciudad, Dirección_local= @Direccion, Teléfono_local= @Telefono, id_responsable = @IdResponsable  WHERE id_local = @idLocal";
             SqlCommand sqlCommand = new SqlCommand(consulta, conexion);
             sqlCommand.Parameters.AddWithValue("@idLocal", idLocal);
             sqlCommand.Parameters.AddWithValue("@Nombre", local.Nombre);
@@ -100,5 +100,19 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             conexion.Close();
             return actualizado > 0;
         }
+
+        public bool ExisteResponsableLocal(int? idResponsable)
+        {
+            SqlConnection conexion = new Connection().obtenerConexion();
+            conexion.Open();
+            string consulta = "SELECT * FROM locales WHERE id_responsable = @IdResponsable ";
+            SqlCommand sqlCommand = new SqlCommand(consulta, conexion);
+            sqlCommand.Parameters.AddWithValue("@IdResponsable", idResponsable);
+            SqlDataReader lector = sqlCommand.ExecuteReader();
+            bool estado = lector.HasRows;
+            conexion.Close();
+            return estado;
+        }
+
     }
 }

@@ -6,11 +6,29 @@ namespace gestorDeGimnasios.Controllers
 {
     public class GestionarResponsableController : Controller
     {
+
+        private readonly IHttpContextAccessor context;
+
+        //Constructor de la clase HomeController  
+        public GestionarResponsableController(IHttpContextAccessor context)
+        {
+            this.context = context;
+        }
+
+
         //Vista principal de Gestion de responsables 
         public ActionResult GestionandoResponsable()
         {
-            List<Responsable> responsables = new ResponsableReposiotorio().ObtenerResponsablesRegistrados();
-            return View(responsables);
+            if (this.context.HttpContext.Session.GetString("tipoUsuario") == "administrador")
+            {
+                List<Responsable> responsables = new ResponsableReposiotorio().ObtenerResponsablesRegistrados();
+                return View(responsables);
+            }
+            else
+            {
+                return RedirectToAction("index", "Home");
+            }
+
         }
 
         //Vista de editar responsable
@@ -33,11 +51,20 @@ namespace gestorDeGimnasios.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool resultado = new ResponsableReposiotorio().ModificarResponsable(responsable, responsable.IdResponsable);
-                if (resultado)
+                if (!(new ResponsableReposiotorio().ExisteUsuarioResponsable(responsable.NombreUsuario)))
                 {
-                    return RedirectToAction("GestionandoResponsable");
+                    bool resultado = new ResponsableReposiotorio().ModificarResponsable(responsable);
+                    if (resultado)
+                    {
+                        return RedirectToAction("GestionandoResponsable");
+                    }
                 }
+                else
+                {
+                    ModelState.AddModelError("", "Error al modificar el responsable, el nombre de usuario ya pertenece a un responsable.");
+                    return View("EditarResponsable", responsable);
+                }
+
             }
             return View(responsable);
         }
@@ -83,14 +110,18 @@ namespace gestorDeGimnasios.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool resultado = new ResponsableReposiotorio().RegistrarResponsable(responsable);
-                if (resultado)
+                if (!(new ResponsableReposiotorio().ExisteUsuarioResponsable(responsable.NombreUsuario)))
                 {
-                    return RedirectToAction("GestionandoResponsable");
+                    bool resultado = new ResponsableReposiotorio().RegistrarResponsable(responsable);
+                    if (resultado)
+                    {
+                        return RedirectToAction("GestionandoResponsable");
+                    }
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Error al registrar el responsable.");
+                    ModelState.AddModelError("", "Error al crear el responsable, el nombre de usuario ya pertenece a un responsable.");
+                    return View("RegistrarResponsable");
                 }
             }
             return View(responsable);

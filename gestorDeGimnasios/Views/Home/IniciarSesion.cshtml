@@ -1,0 +1,37 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model gestorDeGimnasios.Models.Usuario
+
+<h2 class="mainTitulo">Iniciar Sesion</h2>
+
+<div class="mainContenido">
+    <form asp-action="AccionIniciarSesion" method="post" class="formulario">
+
+
+        @Html.LabelFor(model => model.NombreUsuario, htmlAttributes: new { @class = "label" })
+        @Html.TextBoxFor(model => model.NombreUsuario, new { @class = "input", placeholder = "Ingrese nombre usuario", @required = "required" })
+        @Html.ValidationMessageFor(model => model.NombreUsuario, "", new { @class = "textoAdvertencia" })
+
+
+        @Html.LabelFor(model => model.Contrasenia, htmlAttributes: new { @class = "label" })
+        @Html.TextBoxFor(model => model.Contrasenia, new { @class = "input", placeholder = "Ingrese contraseña.", @required = "required" })
+        @Html.ValidationMessageFor(model => model.Contrasenia, "", new { @class = "textoAdvertencia" })
+
+        @Html.LabelFor(model => model.TipoUsuario, htmlAttributes: new { @class = "label" })
+        <select asp-for="TipoUsuario" class="input">
+            <option value="" disabled selected>Seleccione una opción</option>
+
+            <option value="administrador">Administrador</option>
+            <option value="responsable">Responsable</option>
+
+        </select>
+        @Html.ValidationMessageFor(model => model.TipoUsuario, "", new { @class = "textoAdvertencia" })
+
+        <button type="submit" class="boton">Iniciar Sesión</button>
+    </form>
+
+    <div asp-validation-summary="All" class="textoAdvertencia"></div>
+</div>

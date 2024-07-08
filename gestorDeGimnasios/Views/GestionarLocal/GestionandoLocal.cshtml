@@ -4,10 +4,10 @@
 @{
 }
 
-<h2>
-    Administrar Locales
-</h2>
-@Html.ActionLink("Registrar", "RegistrarLocal")
+<h2 class="mainTitulo">Administrar Locales</h2>
+<div class="mainContenido">
+
+    @Html.ActionLink("Registrar", "RegistrarLocal", null, null, new { @class="link h3" })
 
 <table>
     <thead>
@@ -18,8 +18,8 @@
             <th>Dirección</th>
             <th>Teléfono</th>
             <th>Responsable</th>
+            <th>Acciones</th>
         </tr>
-
     </thead>
     <tbody>
         @foreach (Local local in Model)
@@ -30,13 +30,15 @@
                 <td>@Html.DisplayFor(modelItem => local.Ciudad)</td>
                 <td>@Html.DisplayFor(modelItem => local.Direccion)</td>
                 <td>@Html.DisplayFor(modelItem => local.Telefono)</td>
-                <td>@Html.DisplayFor(modelItem => local.Responsable.Nombre) </td>
+                <td>@Html.DisplayFor(modelItem => local.Responsable.Nombre)</td>
                 <td>
-                    @Html.ActionLink("Editar", "EditarLocal", new { idLocal = local.IdLocal })
-                    @Html.ActionLink("Eliminar", "EliminarLocal", new { idLocal = local.IdLocal })
+                    @Html.ActionLink("Editar", "EditarLocal", new { idLocal = local.IdLocal }, new { @class = "link" })
+                    @Html.ActionLink("Eliminar", "EliminarLocal", new { idLocal = local.IdLocal }, new { @class = "link" })
+                    @Html.ActionLink("Ver tipos maquinas", "TiposDeMaquinasLocal", new { idLocal = local.IdLocal }, new { @class = "link" })
+
                 </td>
             </tr>
         }
-
     </tbody>
 </table>
+</div>

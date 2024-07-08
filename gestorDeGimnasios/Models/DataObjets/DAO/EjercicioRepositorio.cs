@@ -28,7 +28,30 @@ namespace gestorDeGimnasios.Data
             return ejercicios;
         }
 
-        public Ejercicio ObtenerEjercicio(int idEjercicio)
+        public List<Ejercicio> ObtenerEjerciciosPorRutina(int? idRutina)
+        {
+            SqlConnection conexion = new Connection().obtenerConexion();
+            conexion.Open();
+            string consulta = "SELECT * FROM ejercicios WHERE Id_ejercicio IN (SELECT Id_ejercicio FROM rutinas_ejercicios WHERE id_rutina = @IdRutina)";
+            SqlCommand comando = new SqlCommand(consulta, conexion);
+            comando.Parameters.AddWithValue("@IdRutina", idRutina);
+            SqlDataReader lector = comando.ExecuteReader();
+            List<Ejercicio> ejercicios = new List<Ejercicio>();
+            while (lector.Read())
+            {
+                Ejercicio ejercicio = new Ejercicio();
+                ejercicio.IdEjercicio = (int)lector.GetDecimal(0);
+                ejercicio.Descripcion = lector.GetString(1);
+                ejercicio.IdTipoMaquina = lector.IsDBNull(3) ? null : lector.GetInt32(3);
+                ejercicio.TipoMaquina = new TipoMaquinaRepositorio().ObtenerTipoMaquina(ejercicio.IdTipoMaquina);
+                ejercicios.Add(ejercicio); 
+            }
+
+            conexion.Close();
+            return ejercicios;
+        }
+
+        public Ejercicio ObtenerEjercicio(int? idEjercicio)
         {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
@@ -61,7 +84,7 @@ namespace gestorDeGimnasios.Data
             return creado > 0;
         }
 
-        public bool EliminarEjercicio(int idEjercicio)
+        public bool EliminarEjercicio(int? idEjercicio)
         {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
@@ -75,7 +98,7 @@ namespace gestorDeGimnasios.Data
 
         }
 
-        public bool ModificarEjercicio(Ejercicio ejercicio, int idEjercicio)
+        public bool ModificarEjercicio(Ejercicio ejercicio, int? idEjercicio)
         {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();

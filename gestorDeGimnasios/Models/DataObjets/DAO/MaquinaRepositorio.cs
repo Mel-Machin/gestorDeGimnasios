@@ -34,7 +34,7 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             return maquinas;
         }
 
-        public Maquina ObtenerMaquina(int idMaquina)
+        public Maquina ObtenerMaquina(int? idMaquina)
         {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
@@ -122,10 +122,12 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
                 Maquina maquina = new Maquina();
                 maquina.IdMaquina = (int)lector.GetDecimal(0);
                 maquina.IdLocal = (int)lector.GetDecimal(2);
+                maquina.Local = new LocalRepositorio().ObtenerLocal(maquina.IdLocal);
                 maquina.FechaCompra = lector.GetDateTime(3);
                 maquina.Precio = lector.GetDecimal(4);
                 maquina.VidaUtil = (int)lector.GetDecimal(5);
                 maquina.IdTipoMaquina = lector.GetInt32(1);
+                maquina.TipoMaquina = new TipoMaquinaRepositorio().ObtenerTipoMaquina(maquina.IdTipoMaquina);
                 maquina.Disponibilidad = lector.GetString(6);
                 maquinas.Add(maquina);
             }
@@ -134,7 +136,7 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             return maquinas;
         }
 
-        public List<Maquina> OrdenarMaquinasPorFechaCompra(string orden)
+        public List<Maquina> OrdenarMaquinasPorFechaCompra(string? orden)
         {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
@@ -150,10 +152,12 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
                 Maquina maquina = new Maquina();
                 maquina.IdMaquina = (int)lector.GetDecimal(0);
                 maquina.IdLocal = (int)lector.GetDecimal(2);
+                maquina.Local = new LocalRepositorio().ObtenerLocal(maquina.IdLocal);
                 maquina.FechaCompra = lector.GetDateTime(3);
                 maquina.Precio = lector.GetDecimal(4);
                 maquina.VidaUtil = (int)lector.GetDecimal(5);
                 maquina.IdTipoMaquina = lector.GetInt32(1);
+                maquina.TipoMaquina = new TipoMaquinaRepositorio().ObtenerTipoMaquina(maquina.IdTipoMaquina);
                 maquina.Disponibilidad = lector.GetString(6);
                 maquinasOrdenadas.Add(maquina);
             }
@@ -162,7 +166,7 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             return maquinasOrdenadas;
         }
 
-        public int CalcularVidaUtilRestante(int idMaquina)
+        public int CalcularVidaUtilRestante(int? idMaquina)
         {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();

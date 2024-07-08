@@ -26,6 +26,34 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             return tiposMaquinas;
         }
 
+        public List<TipoMaquina> ObtenerTipoMaquinaLocalCantidad(int? idLocal)
+        {
+            if (idLocal != null)
+            {
+                SqlConnection conexion = new Connection().obtenerConexion();
+                conexion.Open();
+                string consulta = "Select TM.id_tipo_maquina,TM.Nombre_tipo_maquina,count(*) as Cantidad from maquinas M\r\nInner join tipos_maquinas TM on TM.id_tipo_maquina = M.Id_tipo_maquina where M.Id_local=@idLocal GROUP BY TM.id_tipo_maquina,TM.Nombre_tipo_maquina;\r\n";
+                SqlCommand sqlComando = new SqlCommand(consulta, conexion);
+                sqlComando.Parameters.AddWithValue("@idLocal", idLocal);
+                SqlDataReader lector = sqlComando.ExecuteReader();
+                List<TipoMaquina> tiposMaquinas = new List<TipoMaquina> ();
+                while (lector.Read())
+                {
+                    TipoMaquina tipoMaquina = new TipoMaquina();
+                    tipoMaquina.IdTipoMaquina = (int)lector.GetInt32(0);
+                    tipoMaquina.Nombre = lector.GetString(1);
+                    tipoMaquina.Cantidad = (int)lector.GetInt32(2);
+                    tiposMaquinas.Add(tipoMaquina);
+                }
+                conexion.Close();
+                return tiposMaquinas;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public TipoMaquina ObtenerTipoMaquina(int? idTipoMaquina)
         {
             if (idTipoMaquina != null)
@@ -64,7 +92,7 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             return creado > 0;
         }
 
-        public bool EliminarTipoMaquina(int idTipoMaquina)
+        public bool EliminarTipoMaquina(int? idTipoMaquina)
         {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();
@@ -77,7 +105,7 @@ namespace gestorDeGimnasios.Models.DataObjets.DAO
             return afectados > 0;
         }
 
-        public bool ModificarTipoMaquina(TipoMaquina tipoMaquina, int idTipoMaquina)
+        public bool ModificarTipoMaquina(TipoMaquina tipoMaquina, int? idTipoMaquina)
         {
             SqlConnection conexion = new Connection().obtenerConexion();
             conexion.Open();

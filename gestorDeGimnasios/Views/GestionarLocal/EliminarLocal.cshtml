@@ -5,36 +5,41 @@
 }
 @model gestorDeGimnasios.Models.Local
 
+<h2 class="mainTitulo">Confirmar Eliminación del Local</h2>
 
-<form asp-action="AccionEliminarLocal" method="post">
-    <div class="form-group">
-        @Html.LabelFor(model => model.IdLocal, htmlAttributes: new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.IdLocal, new { @class = "form-control", @readonly = "readonly" })
-    </div>
+<div class="mainContenido">
+<form asp-action="AccionEliminarLocal" method="post" class="formulario">
 
-    <div>
-        @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label" })
-        @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-    </div>
+    @Html.LabelFor(model => model.IdLocal, htmlAttributes: new { @class = "label" })
+    @Html.TextBoxFor(model => model.IdLocal, new { @class = "finput", @readonly = "readonly" })
+    <div></div>
 
-    <div>
-        @Html.LabelFor(model => model.Ciudad, htmlAttributes: new { @class = "control-label" })
-        @Html.EditorFor(model => model.Ciudad, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-    </div>
 
-    <div>
-        @Html.LabelFor(model => model.Direccion, htmlAttributes: new { @class = "control-label" })
-        @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-    </div>
-    <div>
-        @Html.LabelFor(model => model.Telefono, htmlAttributes: new { @class = "control-label" })
-        @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-    </div>
+    @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "label" })
+    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "finput", @readonly = "readonly" } })
+    <div></div>
 
-    <div>
-        @Html.LabelFor(model => model.IdResponsable, htmlAttributes: new { @class = "control-label" })
-        @Html.EditorFor(model => model.IdResponsable, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-    </div>
 
-    <input type="submit" value="Eliminar" class="btn btn-primary" />
+    @Html.LabelFor(model => model.Ciudad, htmlAttributes: new { @class = "label" })
+    @Html.EditorFor(model => model.Ciudad, new { htmlAttributes = new { @class = "finput", @readonly = "readonly" } })
+    <div></div>
+
+
+    @Html.LabelFor(model => model.Direccion, htmlAttributes: new { @class = "label" })
+    @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "finput", @readonly = "readonly" } })
+    <div></div>
+
+
+    @Html.LabelFor(model => model.Telefono, htmlAttributes: new { @class = "label" })
+    @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @class = "finput", @readonly = "readonly" } })
+    <div></div>
+
+
+    @Html.LabelFor(model => model.IdResponsable, htmlAttributes: new { @class = "label" })
+    @Html.EditorFor(model => model.IdResponsable, new { htmlAttributes = new { @class = "finput", @readonly = "readonly" } })
+    <div></div>
+
+    <input type="submit" value="Eliminar" class="boton" />
 </form>
+
+    </div>

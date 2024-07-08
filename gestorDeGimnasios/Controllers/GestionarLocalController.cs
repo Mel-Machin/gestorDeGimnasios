@@ -13,6 +13,12 @@ namespace gestorDeGimnasios.Controllers
             List<Local> locales = new LocalRepositorio().ObtenerLocalesRegistrados();
             return View(locales);
         }
+        public ActionResult TiposDeMaquinasLocal(int idLocal)
+        {
+            ViewData["idLocaL"] = idLocal;
+            List<TipoMaquina> tiposMaquinas= new TipoMaquinaRepositorio().ObtenerTipoMaquinaLocalCantidad(idLocal);
+           return View(tiposMaquinas);
+        }
 
 
         //Vista de registrar local
@@ -25,18 +31,19 @@ namespace gestorDeGimnasios.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AccionRegistrarLocal(Local local)
-        {
-            if (ModelState.IsValid)
-            {
-                bool resultado = new LocalRepositorio().RegistrarLocal(local);
-                if (resultado)
-                {
-                    return RedirectToAction("GestionandoLocal");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Error al registrar el local.");
+        public ActionResult AccionRegistrarLocal(Local local){
+            if (ModelState.IsValid){
+                if (!(new LocalRepositorio().ExisteResponsableLocal(local.IdResponsable))){
+                    bool resultado = new LocalRepositorio().RegistrarLocal(local);
+                    if (resultado)
+                    {
+                        return RedirectToAction("GestionandoLocal");
+                    }
+                }else{
+                    List<Responsable> responsables = new ResponsableReposiotorio().ObtenerResponsablesRegistrados();
+                    ViewData["responsables"] = responsables;
+                    ModelState.AddModelError("", "Error al registrar local, el responsable seleccionado ya tiene un local asignado.");
+                    return View("RegistrarLocal");
                 }
             }
             return View(local);
@@ -62,12 +69,21 @@ namespace gestorDeGimnasios.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AccionEditarLocal(Local local)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                bool resultado = new LocalRepositorio().ModificarLocal(local, local.IdLocal);
-                if (resultado)
+                if (!(new LocalRepositorio().ExisteResponsableLocal(local.IdResponsable)))
                 {
-                    return RedirectToAction("GestionandoLocal");
+                    bool resultado = new LocalRepositorio().ModificarLocal(local, local.IdLocal);
+                    if (resultado)
+                    {
+                        return RedirectToAction("GestionandoLocal");
+                    }
+                }else
+                {
+                    List<Responsable> responsables = new ResponsableReposiotorio().ObtenerResponsablesRegistrados();
+                    ViewData["responsables"] = responsables;
+                    ModelState.AddModelError("", "Error al modificar el local, el responsable seleccionado ya tiene un local asignado.");
+                    return View("EditarLocal", local);
                 }
             }
             return View(local);
@@ -91,7 +107,7 @@ namespace gestorDeGimnasios.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AccionEliminarLocal(Local local)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 bool resultado = new LocalRepositorio().EliminarLocal(local.IdLocal);
                 if (resultado)
@@ -102,5 +118,6 @@ namespace gestorDeGimnasios.Controllers
             return View(local);
         }
 
+        
     }
 }

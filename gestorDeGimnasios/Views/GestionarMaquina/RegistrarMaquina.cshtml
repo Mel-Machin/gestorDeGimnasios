@@ -4,62 +4,64 @@
 @{
 }
 @model gestorDeGimnasios.Models.Maquina
+<h2 class="mainTitulo">Registrando Maquina</h2>
+<div class="mainContenido">
+    <form asp-action="AccionRegistrarMaquina" method="post" class="formulario">
 
+        @Html.LabelFor(model => model.IdLocal, htmlAttributes: new { @class = "label"})
+        <select asp-for="IdLocal" class="input" required="required">
+            <option value="" disabled selected>Seleccione una opción</option>
 
-<form asp-action="AccionRegistrarMaquina" method="post">
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.IdLocal, htmlAttributes: new { @class = "control-label" })
-        <select asp-for="IdLocal" class="form-control">
-            @foreach (Local local in (IEnumerable<Local>)@ViewData["locales"])
-            {
+        @foreach (Local local in (IEnumerable<Local>)ViewData["locales"])
+        {
                 <option value="@local.IdLocal">@local.Nombre</option>
-            }
+        }
         </select>
-
-        @Html.ValidationMessageFor(model => model.IdLocal, "", new { @class = "text-danger" })
-    </div>
+        @Html.ValidationMessageFor(model => model.IdLocal, "", new { @class = "textoAdvertencia" })
 
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.IdTipoMaquina, htmlAttributes: new { @class = "control-label" })
-        <select asp-for="IdTipoMaquina" class="form-control">
-            @foreach (TipoMaquina tipoMaquina in (IEnumerable<TipoMaquina>)@ViewData["tiposMaquinas"])
+
+        @Html.LabelFor(model => model.IdTipoMaquina, htmlAttributes: new { @class = "label" })
+        <select asp-for="IdTipoMaquina" class="input" required="required">
+            <option value="" disabled selected>Seleccione una opción</option>
+
+            @foreach (TipoMaquina tipoMaquina in (IEnumerable<TipoMaquina>)ViewData["tiposMaquinas"])
             {
                 <option value="@tipoMaquina.IdTipoMaquina">@tipoMaquina.Nombre</option>
             }
         </select>
-        @Html.ValidationMessageFor(model => model.IdTipoMaquina, "", new { @class = "text-danger" })
-    </div>
+        @Html.ValidationMessageFor(model => model.IdTipoMaquina, "", new { @class = "textoAdvertencia" })
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.FechaCompra, htmlAttributes: new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.FechaCompra, new { @class = "form-control", type = "date" })
-        @Html.ValidationMessageFor(model => model.FechaCompra, "", new { @class = "text-danger" })
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Precio, htmlAttributes: new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.Precio, new { @class = "form-control", type = "number", min = "10", step = "0.01" })
-        @Html.ValidationMessageFor(model => model.Precio, "", new { @class = "text-danger" })
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.VidaUtil, htmlAttributes: new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.VidaUtil, new { @class = "form-control", type = "number", max = "10" })
-        @Html.ValidationMessageFor(model => model.VidaUtil, "", new { @class = "text-danger" })
-    </div>
+        @Html.LabelFor(model => model.FechaCompra, htmlAttributes: new { @class = "label" })
+        @Html.TextBoxFor(model => model.FechaCompra, "{0:yyyy-MM-dd}", new { @class = "input", type = "date", required = "required" })
+        @Html.ValidationMessageFor(model => model.FechaCompra, "", new { @class = "textoAdvertencia" })
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Disponibilidad, htmlAttributes: new { @class = "control-label" })
-        <select asp-for="Disponibilidad" class="form-control">
-            <option value="" disabled selected>Seleccione disponibilidad</option>
+
+
+        @Html.LabelFor(model => model.Precio, htmlAttributes: new { @class = "label" })
+        @Html.TextBoxFor(model => model.Precio, new { @class = "input", type = "number", min = "10", step = "0.01", required = "required",placeholder="Ingrese precio" })
+        @Html.ValidationMessageFor(model => model.Precio, "", new { @class = "textoAdvertencia" })
+
+
+
+        @Html.LabelFor(model => model.VidaUtil, htmlAttributes: new { @class = "label" })
+        @Html.TextBoxFor(model => model.VidaUtil, new { @class = "input", type = "number", max = "10", required = "required", placeholder="Ingrese cantidad de años (Ejemplo: 5)"})
+        @Html.ValidationMessageFor(model => model.VidaUtil, "", new { @class = "textoAdvertencia" })
+
+
+
+        @Html.LabelFor(model => model.Disponibilidad, htmlAttributes: new { @class = "label" })
+        <select asp-for="Disponibilidad" class="input" required="required">
+            <option value="" disabled selected>Seleccione una opción</option>
             <option value="no disponible">No disponible</option>
-            <option value="en reparacion">En reparacion</option>
+            <option value="en reparacion">En reparación</option>
             <option value="disponible">Disponible</option>
         </select>
-        @Html.ValidationMessageFor(model => model.Disponibilidad, "", new { @class = "text-danger" })
-    </div>
+        @Html.ValidationMessageFor(model => model.Disponibilidad, "", new { @class = "textoAdvertencia" })
 
-    <input type="submit" value="Guardar registro" class="btn btn-primary" />
-</form>
+
+        <input type="submit" value="Guardar registro" class="boton" />
+    </form>
+</div>

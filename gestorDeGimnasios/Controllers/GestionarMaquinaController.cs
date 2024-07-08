@@ -10,6 +10,8 @@ namespace gestorDeGimnasios.Controllers
         //Vista principal de Gestion de Maquinas 
         public ActionResult GestionandoMaquina()
         {
+            List<Local> locales = new LocalRepositorio().ObtenerLocalesRegistrados();
+            ViewData["locales"] = locales;
             List<Maquina> maquinas = new MaquinaRepositorio().ObtenerMaquinasRegistradas();
             ViewData["TituloLista"] = "Lista de maquinas:";
             return View(maquinas);
@@ -22,6 +24,8 @@ namespace gestorDeGimnasios.Controllers
         {
             if (ModelState.IsValid)
             {
+                List<Local> locales = new LocalRepositorio().ObtenerLocalesRegistrados();
+                ViewData["locales"] = locales;
                 Local local = new Local();
                 local.IdLocal = idLocal;
                 List<Maquina> maquinasFiltradas = new MaquinaRepositorio().ObtenerMaquinasPorLocal(local);
@@ -41,7 +45,8 @@ namespace gestorDeGimnasios.Controllers
         {
             if (ModelState.IsValid)
             {
-
+                List<Local> locales = new LocalRepositorio().ObtenerLocalesRegistrados();
+                ViewData["locales"] = locales;
                 List<Maquina> maquinasFiltradas = new MaquinaRepositorio().OrdenarMaquinasPorFechaCompra(opcion);
                 ViewData["TituloLista"] = "Lista de maquinas ordenadas de manera " + (opcion == "Desc" ? "descendente." : "ascendente."); ;
                 return View("GestionandoMaquina", maquinasFiltradas); // Devuelve la vista GestionandoMaquina con las máquinas filtradas (ordenadas).
@@ -56,8 +61,11 @@ namespace gestorDeGimnasios.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CalcularVidaUtil(int idMaquina)
         {
+            List<Local> locales = new LocalRepositorio().ObtenerLocalesRegistrados();
+            ViewData["locales"] = locales;
             if (ModelState.IsValid)
             {
+
                 int vidaUtilRestante = new MaquinaRepositorio().CalcularVidaUtilRestante(idMaquina);
                 ViewData["VidaUtilRestante_" + idMaquina] = vidaUtilRestante;
             }

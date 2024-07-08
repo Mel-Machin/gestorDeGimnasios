@@ -5,25 +5,25 @@
 }
 @model gestorDeGimnasios.Models.Rutina
 
+<h2 class="mainTitulo">Registrando Rutina</h2>
+<div class="mainContenido">
+<form asp-action="AccionRegistrarRutina" method="post" class="formulario">
 
-<form asp-action="AccionRegistrarRutina" method="post">
+    @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "label" })
+        @Html.TextBoxFor(model => model.Descripcion, new { @class = "input", placeholder = "Ingrese la descripción de la rutina",required = "required" })
+    @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "textoAdvertencia" })
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control", type = "text" } })
-        @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
-    </div>
+    @Html.LabelFor(model => model.TipoRutina, htmlAttributes: new { @class = "label" })
+        <select asp-for="TipoRutina" class="input" required="required">
+            <option value="" disabled selected>Seleccione una opción</option>
+        <option value="competicion amateur">Competencia amateur</option>
+        <option value="competicion profesional">Competencia profesional</option>
+        <option value="salud">Salud</option>
+    </select>
+    @Html.ValidationMessageFor(model => model.TipoRutina, "", new { @class = "textoAdvertencia" })
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.TipoRutina, htmlAttributes: new { @class = "control-label" })
-        <select asp-for="TipoRutina" class="form-control">
-            <option value="" disabled selected>Seleccione tipo de rutina</option>
-            <option value="competicion amateur">Competencia amateur</option>
-            <option value="competicion profesional">Competencia profesional</option>
-            <option value="salud">Salud</option>
-        </select>
-        @Html.ValidationMessageFor(model => model.TipoRutina, "", new { @class = "text-danger" })
-    </div>
 
-    <input type="submit" value="Guardar registro" class="btn btn-primary" />
+    <button type="submit" class="boton">Guardar registro</button>
 </form>
+    <div asp-validation-summary="All" class="textoAdvertencia"></div>
+</div>
