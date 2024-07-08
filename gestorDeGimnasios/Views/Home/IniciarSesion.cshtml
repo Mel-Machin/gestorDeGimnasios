@@ -17,7 +17,7 @@
 
 
         @Html.LabelFor(model => model.Contrasenia, htmlAttributes: new { @class = "label" })
-        @Html.TextBoxFor(model => model.Contrasenia, new { @class = "input", placeholder = "Ingrese contraseña.", @required = "required" })
+        @Html.PasswordFor(model => model.Contrasenia, new { @class = "input", @required = "required", placeholder = "Ingrese contraseña" })
         @Html.ValidationMessageFor(model => model.Contrasenia, "", new { @class = "textoAdvertencia" })
 
         @Html.LabelFor(model => model.TipoUsuario, htmlAttributes: new { @class = "label" })
